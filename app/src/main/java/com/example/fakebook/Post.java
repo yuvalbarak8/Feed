@@ -9,6 +9,11 @@ public class Post {
     String when_posted;
     int profile_image;
     int image;
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     List<Comment> comments;
 
     public Post(String name, String when_posted, int profile_image, int image) {

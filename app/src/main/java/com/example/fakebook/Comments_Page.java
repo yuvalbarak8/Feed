@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Comments_Page extends AppCompatActivity {
 
@@ -17,15 +19,15 @@ public class Comments_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments_page);
-
+        Intent intent = getIntent();
+        Serializable current_comments = intent.getSerializableExtra("current_comments");
+        List<Comment> p = (List<Comment>) current_comments;
         ListView commentsListView = findViewById(R.id.commentsListView);
         EditText commentEditText = findViewById(R.id.commentEditText);
         Button addCommentButton = findViewById(R.id.addCommentButton);
         Button back = findViewById(R.id.back);
+        commentAdapter = new CommentAdapter(this, p); // Create a custom adapter for comments, you need to implement this adapter
 
-        commentAdapter = new CommentAdapter(this); // Create a custom adapter for comments, you need to implement this adapter
-
-        Intent intent = getIntent();
         if (intent != null) {
             int postIndex = intent.getIntExtra("postIndex", -1);
 

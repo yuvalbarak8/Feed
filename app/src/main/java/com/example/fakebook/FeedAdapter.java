@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class FeedAdapter extends BaseAdapter {
@@ -75,6 +76,7 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.img.setImageResource(p.getImage());
         viewHolder.comments.setOnClickListener(v -> {
             Intent i = new Intent(activity,Comments_Page.class);
+            i.putExtra("current_comments",(Serializable)p.getComments());
            activity.startActivity(i);
         });
 

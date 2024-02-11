@@ -1,5 +1,6 @@
 package com.example.fakebook;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,10 @@ public class CommentAdapter extends BaseAdapter {
 
     private List<Comment> comments;
     private LayoutInflater inflater;
+    Activity activity;
 
-    public CommentAdapter(Context context) {
-        this.comments = new ArrayList<>();
+    public CommentAdapter(Context context, List<Comment> comments) {
+        this.comments = comments;
         this.inflater = LayoutInflater.from(context);
     }
 
