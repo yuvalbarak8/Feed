@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 public class Comments_Page extends AppCompatActivity {
 
+
     private CommentAdapter commentAdapter;
 
     @Override
