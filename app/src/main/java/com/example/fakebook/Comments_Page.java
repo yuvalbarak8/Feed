@@ -46,7 +46,7 @@ public class Comments_Page extends AppCompatActivity {
         back.setOnClickListener(view -> {
             // Pass the comments back to MainActivity
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("comments", commentAdapter.getComments());
+           resultIntent.putExtra("comments", commentAdapter.getComments());
             setResult(RESULT_OK, resultIntent);
 
             // Finish the current activity
