@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.Serializable;
+
 public class Comments_Page extends AppCompatActivity {
 
     private CommentAdapter commentAdapter;
@@ -46,7 +48,7 @@ public class Comments_Page extends AppCompatActivity {
         back.setOnClickListener(view -> {
             // Pass the comments back to MainActivity
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("comments", commentAdapter.getComments());
+            resultIntent.putExtra("comments", (Serializable)commentAdapter.getComments());
             setResult(RESULT_OK, resultIntent);
 
             // Finish the current activity

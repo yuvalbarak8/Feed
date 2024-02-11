@@ -16,7 +16,7 @@ public class CommentAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     public CommentAdapter(Context context) {
-        //this.comments = new ArrayList<>();
+        this.comments = new ArrayList<>();
         this.inflater = LayoutInflater.from(context);
     }
 
