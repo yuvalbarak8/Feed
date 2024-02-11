@@ -1,9 +1,14 @@
 package com.example.fakebook;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,15 +18,18 @@ import java.util.List;
 public class FeedAdapter extends BaseAdapter {
 
     List<Post> posts;
+    Activity activity;
 
     private class ViewHolder{
         TextView name;
         TextView when;
         ImageView profile;
         ImageView img;
+        Button comments;
     }
 
-    public FeedAdapter(List<Post> posts) {
+    public FeedAdapter(List<Post> posts, Activity activity) {
+        this.activity=activity;
         this.posts = posts;
     }
 
@@ -54,6 +62,7 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.when = convertView.findViewById(R.id.feed_post_when);
             viewHolder.profile = convertView.findViewById(R.id.feed_post_profile_img);
             viewHolder.img = convertView.findViewById(R.id.feed_post_img);
+            viewHolder.comments = convertView.findViewById(R.id.comments_btn);
 
             convertView.setTag(viewHolder);
         }
@@ -64,6 +73,10 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.when.setText(p.getWhen_posted());
         viewHolder.profile.setImageResource(p.getProfile_image());
         viewHolder.img.setImageResource(p.getImage());
+        viewHolder.comments.setOnClickListener(v -> {
+            Intent i = new Intent(activity,Comments_Page.class);
+           activity.startActivity(i);
+        });
 
         viewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override

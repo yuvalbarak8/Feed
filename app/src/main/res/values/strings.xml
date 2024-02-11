@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">FakeBook</string>
     <string name="like">Like</string>
-     <string name="comment">Comment</string>
-     <string name="share">Share</string>
+    <string name="comment">Comment</string>
+    <string name="share">Share</string>
+    <string name="comments">Comments</string>
     <string-array name="menu">
         <item>First</item>
         <item>Second</item>

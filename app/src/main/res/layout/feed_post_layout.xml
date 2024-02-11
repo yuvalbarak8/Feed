@@ -50,8 +50,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="286dp"
-        android:layout_height="76dp"
+        android:layout_width="363dp"
+        android:layout_height="61dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,8 @@
             android:drawableLeft="@drawable/ic_like"
             android:focusable="false"
             android:padding="5dp"
-            android:text="Like" />
+            android:id="@+id/comments_btn"
+            android:text="@string/comments" />
 
         <Button
             android:layout_width="0dp"
