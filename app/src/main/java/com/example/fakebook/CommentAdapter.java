@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CommentAdapter extends BaseAdapter {
 
     private List<Comment> comments;
     private LayoutInflater inflater;
-    Activity activity;
+
 
     public CommentAdapter(Context context, List<Comment> comments) {
         this.comments = comments;
@@ -35,11 +34,15 @@ public class CommentAdapter extends BaseAdapter {
     public List<Comment> getComments() {
         return this.comments;
     }
-
+   public LayoutInflater getInflater()
+   {
+    return this.inflater;
+   }
     @Override
     public int getCount() {
         return comments.size();
     }
+
 
     @Override
     public Object getItem(int position) {

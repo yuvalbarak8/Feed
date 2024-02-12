@@ -1,11 +1,11 @@
 package com.example.fakebook;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,36 +14,35 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends Activity {
-
-    private static final int COMMENTS_REQUEST_CODE = 1;
-    List<Post> posts;
+    private List<Post> posts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        posts = generatePosts();
-        FeedAdapter feedAdapter = new FeedAdapter(posts,this);
+
+        this.posts = generatePosts();
+        FeedAdapter feedAdapter = new FeedAdapter(this.posts, this);
         ListView lst = findViewById(R.id.lstFeed);
         lst.setAdapter(feedAdapter);
-
-        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Post clickedPost = (Post) parent.getItemAtPosition(position);
-                Toast.makeText(MainActivity.this, clickedPost.getName(), Toast.LENGTH_LONG).show();
-            }
-        });
-
+        TextView error_post = findViewById(R.id.error_empty_post);
         Button submit = findViewById(R.id.submit_btn);
         submit.setOnClickListener(view -> {
             TextView new_post = findViewById(R.id.new_post);
             String post_content = new_post.getText().toString();
-            Post post = new Post(post_content, "12/12/13", 1, 2);
-            posts.add(0, post);
-            feedAdapter.notifyDataSetChanged();
+            if(!post_content.equals("")) {
+                Post post = new Post(post_content, "12/12/13", 1, 2);
+                posts.add(0, post);
+                error_post.setVisibility(View.GONE);
+                feedAdapter.notifyDataSetChanged();
+                new_post.setText("");
+            }
+            else {
+                error_post.setVisibility(View.VISIBLE);
+            }
         });
     }
 
@@ -58,23 +57,5 @@ public class MainActivity extends Activity {
         posts.add(test2);
         posts.add(test3);
         return posts;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == COMMENTS_REQUEST_CODE && resultCode == RESULT_OK) {
-            // Retrieve data from the comments page
-            String comment = data.getStringExtra("comment");
-
-            // Update the corresponding post with the comment
-            if (comment != null && !comment.isEmpty()) {
-                posts.get(0).setName(posts.get(0).getName() + "\nComment: " + comment);
-            }
-
-            // Update the adapter to reflect the changes
-            ((FeedAdapter) ((ListView) findViewById(R.id.lstFeed)).getAdapter()).notifyDataSetChanged();
-        }
     }
 }

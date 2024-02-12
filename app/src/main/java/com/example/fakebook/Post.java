@@ -5,53 +5,49 @@ import java.util.List;
 
 public class Post {
 
-    String name;
-    String when_posted;
-    int profile_image;
-    int image;
+    private String content;
+    private String when_posted;
+    private int profile_image;
+    private int image;
+    private List<Comment> comments;
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    List<Comment> comments;
-
-    public Post(String name, String when_posted, int profile_image, int image) {
-        this.name = name;
+    public Post(String content, String when_posted, int profile_image, int image) {
+        this.content = content;
         this.when_posted = when_posted;
         this.profile_image = profile_image;
         this.image = image;
         this.comments = new ArrayList<>();
     }
-    public String getName() {
-        return name;
+
+    public String getContent() {
+        return this.content;
     }
 
     public String getWhen_posted() {
-        return when_posted;
+        return this.when_posted;
     }
 
     public int getProfile_image() {
-        return profile_image;
+        return this.profile_image;
     }
 
     public int getImage() {
-        return image;
+        return this.image;
     }
-    public void select()
-    {
-        name = this.name + "selected";
-    }
-    public void add_comment(Comment comment)
-    {
+    public void add_comment(Comment comment) {
         this.comments.add(comment);
     }
 
-    public void setName(String s) {
-        this.name=s;
+    public void setContent(String content) {
+        this.content = content;
     }
+
 
     public List<Comment> getComments() {
         return this.comments;
+    }
+
+    public void setComments(List<Comment> updatedCommentsList) {
+        this.comments = updatedCommentsList;
     }
 }
