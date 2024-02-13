@@ -17,14 +17,14 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="63dp"
             android:src="@drawable/icon2" />
 
         <EditText
             android:id="@+id/new_post"
-            android:background="@color/material_dynamic_primary95"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="66dp"
+            android:background="@color/material_dynamic_primary95"
             android:hint="What's up with you today?" />
         <TextView
             android:layout_width="wrap_content"
@@ -32,20 +32,24 @@
             android:text="please write something"
             android:visibility="gone"
             android:id="@+id/error_empty_post"/>
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload Image"
-            android:id="@+id/upload_img_btn"/>
-        <Button
-            android:id="@+id/submit_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit" />
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/upload_img_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Image" />
+
+            <Button
+                android:id="@+id/submit_btn"
+                android:layout_width="111dp"
+                android:layout_height="35dp"
+                android:text="Submit" />
         </LinearLayout>
     </LinearLayout>
 

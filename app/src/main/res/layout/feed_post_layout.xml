@@ -1,133 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <ImageView
+        android:id="@+id/feed_post_profile_img"
+        android:layout_width="78dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166"
-        tools:layout_editor_absoluteX="51dp">
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
-        <ImageView
-            android:id="@+id/feed_post_profile_img"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="136dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher_round" />
 
-        <TextView
-            android:id="@+id/feed_post_when"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/feed_post_profile_img"
-            app:layout_constraintTop_toBottomOf="@+id/feed_post_name" />
+    <TextView
+        android:id="@+id/feed_post_name"
+        android:layout_width="302dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="60dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.825"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/feed_post_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/feed_post_profile_img"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/feed_post_when"
+        android:layout_width="322dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feed_post_name" />
 
-        <ImageView
-            android:id="@+id/feed_post_img"
-            android:layout_width="381dp"
-            android:layout_height="375dp"
-            android:layout_marginTop="32dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.533"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.197" />
+    <ImageView
+        android:id="@+id/feed_post_img"
+        android:layout_width="355dp"
+        android:layout_height="230dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/feed_post_when"
+        app:layout_constraintVertical_bias="0.331" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="363dp"
-            android:layout_height="61dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.731">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="93dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feed_post_img"
+        app:layout_constraintVertical_bias="0.055"
+        tools:layout_editor_absoluteX="-16dp">
 
-            <Button
-                android:id="@+id/comments_btn"
-                android:layout_width="82dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_like"
-                android:focusable="false"
-                android:padding="5dp"
-                android:text="@string/comments" />
-
-            <Button
-                android:layout_width="106dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_like"
-                android:focusable="false"
-                android:padding="5dp"
-                android:text="Like" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/comments_area"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/comments_btn"
+            android:layout_width="7dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:visibility="gone"
-            android:orientation="vertical">
-            <EditText
-                android:layout_width="match_parent"
-                android:id="@+id/new_comment_text"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:hint="new comment..." />
-            <Button
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:text="New Comment"
-                android:id="@+id/new_comment_btn"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="please write something"
-                android:id="@+id/error_comment"/>
-            <ListView
-                android:id="@+id/commentsListView"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/comment"
+            android:drawablePadding="5dp"
+            android:focusable="false"
+            android:padding="5dp"
+            android:text="@string/comments"
+            android:textSize="10sp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="61dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/share"
+            android:drawablePadding="5dp"
+            android:focusable="false"
+            android:padding="5dp"
+            android:text="Share"
+            android:textSize="10sp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/like2"
+            android:drawablePadding="5dp"
+            android:focusable="false"
+            android:padding="5dp"
+            android:text="Like"
+            android:textSize="10sp" />
     </LinearLayout>
 
 
 
+    <LinearLayout
+        android:id="@+id/comments_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/error_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="please write something"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/new_comment_text"
+            android:layout_width="284dp"
+            android:layout_height="83dp"
+            android:layout_weight="1"
+            android:hint="new comment..."
+            tools:layout_editor_absoluteX="55dp"
+            tools:layout_editor_absoluteY="582dp" />
+
+        <Button
+            android:id="@+id/new_comment_btn"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="New Comment"
+            tools:layout_editor_absoluteX="55dp"
+            tools:layout_editor_absoluteY="665dp" />
+
+        <ListView
+            android:id="@+id/commentsListView"
+            android:layout_width="match_parent"
+            android:layout_height="200px"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,8 +14,8 @@ public class Post {
     public Post(String content, String when_posted, int profile_image, int image) {
         this.content = content;
         this.when_posted = when_posted;
-        this.profile_image = profile_image;
-        this.image = image;
+        this.profile_image = R.drawable.profile_image;
+        this.image = R.drawable.biden;
         this.comments = new ArrayList<>();
     }
 

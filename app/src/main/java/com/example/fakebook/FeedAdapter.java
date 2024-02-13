@@ -2,6 +2,7 @@ package com.example.fakebook;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
