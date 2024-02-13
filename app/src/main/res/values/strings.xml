@@ -9,5 +9,19 @@
         <item>Second</item>
         <item>Third</item>
     </string-array>
-
+    <string name="login_etUsername">Username</string>
+    <string name="login_etPassword">Password</string>
+    <string name="login_btnLogin">login</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Signup">Signup</string>
+    <string name="SignUp_etUsername">Username</string>
+    <string name="SignUp_etPassword">password</string>
+    <string name="SignUp_etVerifyPassword">Verify Password</string>
+    <string name="SignUp_etNickname">Nickname</string>
+    <string name="SignUp_etSignup">Sign Up</string>
+    <string name="feed_title">Welcome to the feed</string>
+    <string name="login_error">Username or Password incorrect</string>
+    <string name="post_content">Hello World\n</string>
+    <string name="title_activity_feed">Feed</string>
+    <string name="submit_button">submit</string>
 </resources>

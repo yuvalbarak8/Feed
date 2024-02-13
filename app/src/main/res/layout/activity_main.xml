@@ -4,70 +4,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/llInput"
-        android:layout_width="0dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:src="@drawable/icon2" />
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-16dp">
 
         <EditText
-            android:id="@+id/new_post"
+            android:id="@+id/login_username"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:background="@color/material_dynamic_primary95"
-            android:hint="What's up with you today?" />
-        <TextView
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/login_etUsername"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/login_etPassword"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
+        <LinearLayout
+            android:id="@+id/error_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="please write something"
-            android:visibility="gone"
-            android:id="@+id/error_empty_post"/>
-
-        <LinearLayout
-            android:layout_width="258dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <Button
-                android:id="@+id/upload_img_btn"
-                android:layout_width="wrap_content"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/login_error"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upload Image" />
-
-            <Button
-                android:id="@+id/submit_btn"
-                android:layout_width="111dp"
-                android:layout_height="35dp"
-                android:text="Submit" />
+                android:layout_gravity="center"
+                android:text="@string/login_error"
+                android:textColor="#FF0000"
+                />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/login_btnLogin" />
+
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/Signup" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
+        android:layout_width="170dp"
+        android:layout_height="71dp"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llInput">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.789">
 
-        <ListView
-            android:id="@+id/lstFeed"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:dividerHeight="6dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_logo" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Facebook"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.657" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
