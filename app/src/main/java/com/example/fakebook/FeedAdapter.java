@@ -1,7 +1,9 @@
 package com.example.fakebook;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -15,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,6 +39,7 @@ public class FeedAdapter extends BaseAdapter {
         Button new_comment_btn;
         EditText new_comment_text;
         TextView error_empty_comment;
+        Button like_btn;
     }
 
     public FeedAdapter(List<Post> posts, Activity activity) {
@@ -75,6 +80,7 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.new_comment_btn = convertView.findViewById(R.id.new_comment_btn);
             viewHolder.new_comment_text = convertView.findViewById(R.id.new_comment_text);
             viewHolder.error_empty_comment = convertView.findViewById(R.id.error_comment);
+            viewHolder.like_btn = convertView.findViewById(R.id.like_btn);
 
             convertView.setTag(viewHolder);
         }
@@ -85,6 +91,10 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.when.setText(p.getWhen_posted());
         viewHolder.profile.setImageResource(p.getProfile_image());
         viewHolder.img.setImageResource(p.getImage());
+        viewHolder.like_btn.setOnClickListener(v -> {
+            viewHolder.like_btn.setBackgroundColor(R.drawable.ic_launcher_background);
+        });
+
         CommentAdapter commentAdapter = new CommentAdapter(this.activity, p.getComments());
         viewHolder.commentList.setAdapter(commentAdapter);
         viewHolder.comments.setOnClickListener(v -> {
