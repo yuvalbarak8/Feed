@@ -17,6 +17,25 @@ public class FeedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        Button toggleModeButton = findViewById(R.id.nightModeButton);
+        toggleModeButton.setOnClickListener(new View.OnClickListener() {
+            private boolean isNightMode = false;
+
+            @Override
+            public void onClick(View v) {
+                // Toggle between night mode and light mode
+                if (isNightMode) {
+                    // Apply light mode styles
+                    applyLightModeStyles();
+                    this.isNightMode = false;
+                } else {
+                    // Apply night mode styles
+                    applyNightModeStyles();
+                    this.isNightMode = true;
+                }
+
+            }
+        });
 
         this.posts = generatePosts();
         FeedAdapter feedAdapter = new FeedAdapter(this.posts, this);
@@ -38,6 +57,17 @@ public class FeedActivity extends Activity {
                 error_post.setVisibility(View.VISIBLE);
             }
         });
+    }
+    // Function to apply light mode styles
+    private void applyLightModeStyles() {
+        // Set background color, text color, or any other styles for light mode
+        findViewById(R.id.feed_page).setBackgroundColor(getResources().getColor(R.color.light_background));
+    }
+
+    // Function to apply night mode styles
+    private void applyNightModeStyles() {
+        // Set background color, text color, or any other styles for night mode
+        findViewById(R.id.feed_page).setBackgroundColor(getResources().getColor(R.color.dark_background));
     }
 
     private List<Post> generatePosts() {

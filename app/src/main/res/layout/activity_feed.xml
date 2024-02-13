@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FeedActivity">
+    tools:context=".FeedActivity"
+    android:id="@+id/feed_page">
 
     <LinearLayout
         android:id="@+id/llInput"
@@ -15,10 +16,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:src="@drawable/icon2" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <!-- ImageView -->
+            <ImageView
+                android:layout_width="149dp"
+                android:layout_height="63dp"
+                android:src="@drawable/icon2" />
+
+            <!-- Button -->
+            <Button
+                android:id="@+id/nightModeButton"
+                android:layout_width="144dp"
+                android:layout_height="48dp"
+                android:text="Toggle Night Mode" />
+
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/new_post"
@@ -48,7 +66,7 @@
             <Button
                 android:id="@+id/submit_btn"
                 android:layout_width="111dp"
-                android:layout_height="35dp"
+                android:layout_height="48dp"
                 android:text="Submit" />
         </LinearLayout>
     </LinearLayout>
