@@ -1,7 +1,7 @@
 The project was brought to life by the collective efforts of Itamar, Yedidya, and Yuval, with each member specializing in a different aspect of the app's functionality:
 
 Itamar's Contribution: The Login Screen
-Itamar engineered the login screen, implementing a user-friendly interface that allows individuals to securely access their accounts. By entering a username and the password "Israel123," users can navigate to the feed of the social media .
+Itamar engineered the login screen, implementing a user-friendly interface that allows individuals to securely access their accounts. By entering a username and the password "Israel123" users can navigate to the feed of the social media .
 
 Yedidya's Contribution: The Signup Screen
 Yedidya developed the signup screen, focusing on an effortless registration process that validate the user details.
