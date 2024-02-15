@@ -5,7 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#f0f2f5">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="265dp"
+        android:layout_height="134dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -56,45 +69,33 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Correct! pass you to the feed..."
-                android:textColor="@color/happy"
+                android:textColor="#e28743"
                 />
         </LinearLayout>
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="#0866ff"
+            android:layout_marginTop="25dp"
             android:text="@string/login_btnLogin" />
 
-        <Button
-            android:id="@+id/btnSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/Signup" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="265dp"
-        android:layout_height="133dp"
-        android:gravity="center"
-        android:padding="20dp"
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="#42b72a"
+        android:text="@string/Signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.854">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.143" />
 
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="265dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/icon" />
-
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

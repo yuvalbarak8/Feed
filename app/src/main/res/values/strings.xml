@@ -13,7 +13,7 @@
     <string name="login_etPassword">Password</string>
     <string name="login_btnLogin">login</string>
     <string name="Facebook">Facebook</string>
-    <string name="Signup">Signup</string>
+    <string name="Signup">Make a new account</string>
     <string name="SignUp_etUsername">Username</string>
     <string name="SignUp_etPassword">password</string>
     <string name="SignUp_etVerifyPassword">Verify Password</string>
@@ -29,5 +29,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nickname">Nickname</string>
+    <string name="upload_image_btn">Upload Image</string>
 
 </resources>
