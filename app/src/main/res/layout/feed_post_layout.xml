@@ -33,12 +33,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
         android:text="edit"
         android:textStyle="normal"
-        android:background="@android:color/transparent"
-    app:layout_constraintTop_toBottomOf="@+id/feed_post_name"
-    tools:layout_editor_absoluteX="0dp"
-    android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/feed_post_name"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/cancel_edit"
@@ -46,12 +46,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
         android:text="Cancel"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/feed_post_img"
         app:layout_constraintEnd_toStartOf="@+id/save_edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPost"
-        app:layout_constraintVertical_bias="0.0"
-        android:visibility="gone"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/save_edit"
@@ -59,18 +59,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
         android:text="Save"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/feed_post_img"
         app:layout_constraintTop_toBottomOf="@+id/editPost"
         app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="130dp"
-        android:visibility="gone"/>
+        tools:layout_editor_absoluteX="130dp" />
 
     <Button
+        android:id="@+id/edit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"
-        android:id="@+id/edit_btn"
-        tools:layout_editor_absoluteX="205dp"
+        tools:layout_editor_absoluteX="195dp"
+        tools:layout_editor_absoluteY="27dp" />
+
+    <Button
+        android:id="@+id/delete_post_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="160dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="27dp" />
 
     <TextView

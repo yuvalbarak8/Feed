@@ -44,6 +44,7 @@ public class FeedAdapter extends BaseAdapter {
         EditText edit_post_text;
         Button cancel_edit;
         Button save_edit;
+        Button delete_post_btn;
     }
 
     public FeedAdapter(List<Post> posts, Activity activity) {
@@ -89,6 +90,7 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.save_edit = convertView.findViewById(R.id.save_edit);
             viewHolder.edit_post_text = convertView.findViewById(R.id.editPost);
             viewHolder.edit_btn = convertView.findViewById(R.id.edit_btn);
+            viewHolder.delete_post_btn = convertView.findViewById(R.id.delete_post_btn);
             convertView.setTag(viewHolder);
         }
 
@@ -128,12 +130,17 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.save_edit.setOnClickListener(v->{
             String new_text = viewHolder.edit_post_text.getText().toString();
             p.setContent(new_text);
-            viewHolder.name.setText(new_text);
+            this.notifyDataSetChanged();
             viewHolder.edit_post_text.setVisibility(View.GONE);
             viewHolder.edit_btn.setVisibility(View.VISIBLE);
             viewHolder.name.setVisibility(View.VISIBLE);
             viewHolder.save_edit.setVisibility(View.GONE);
             viewHolder.cancel_edit.setVisibility(View.GONE);
+        });
+        // delete post
+        viewHolder.delete_post_btn.setOnClickListener(v->{
+            posts.remove(p);
+            this.notifyDataSetChanged();
         });
 
         CommentAdapter commentAdapter = new CommentAdapter(this.activity, p.getComments());
