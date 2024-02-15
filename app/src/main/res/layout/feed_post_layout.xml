@@ -10,7 +10,7 @@
         android:id="@+id/feed_post_profile_img"
         android:layout_width="78dp"
         android:layout_height="75dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,91 +19,49 @@
 
     <TextView
         android:id="@+id/feed_post_name"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_width="277dp"
+        android:layout_height="38dp"
         android:layout_marginTop="72dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.753"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/editPost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="272dp"
+        android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:text="edit"
         android:textStyle="normal"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/feed_post_name"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <Button
-        android:id="@+id/cancel_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:text="Cancel"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/feed_post_img"
-        app:layout_constraintEnd_toStartOf="@+id/save_edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPost"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/save_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:text="Save"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/feed_post_img"
-        app:layout_constraintTop_toBottomOf="@+id/editPost"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="130dp" />
-
-    <Button
-        android:id="@+id/edit_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="27dp" />
-
-    <Button
-        android:id="@+id/delete_post_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="160dp"
-        android:text="Delete"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="27dp" />
+        app:layout_constraintStart_toEndOf="@+id/feed_post_profile_img"
+        app:layout_constraintTop_toBottomOf="@+id/feed_post_when"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/feed_post_when"
-        android:layout_width="322dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="287dp"
+        android:layout_height="39dp"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/feed_post_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toEndOf="@+id/feed_post_profile_img"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/feed_post_img"
-        android:layout_width="355dp"
-        android:layout_height="230dp"
+        android:layout_width="800px"
+        android:layout_height="800px"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/feed_post_when"
-        app:layout_constraintVertical_bias="0.552" />
+        app:layout_constraintVertical_bias="0.401" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -112,8 +70,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feed_post_img"
-        app:layout_constraintVertical_bias="0.334"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="1dp">
 
         <Button
             android:id="@+id/comments_btn"
@@ -122,7 +80,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/comment"
+            android:drawableLeft="@drawable/comment1"
             android:drawablePadding="5dp"
             android:focusable="false"
             android:padding="5dp"
@@ -149,7 +107,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/like2"
+            android:drawableLeft="@drawable/like"
             android:drawablePadding="5dp"
             android:focusable="false"
             android:padding="5dp"
@@ -198,5 +156,45 @@
             android:layout_height="200px"
             android:layout_margin="5dp"
             android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/feed_post_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feed_post_name">
+
+        <Button
+            android:id="@+id/delete_post_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="119dp" />
+
+        <Button
+            android:id="@+id/save_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:visibility="gone"/>
+
+
+        <Button
+            android:id="@+id/cancel_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

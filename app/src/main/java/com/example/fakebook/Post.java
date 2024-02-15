@@ -1,6 +1,7 @@
 package com.example.fakebook;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class Post {
     private String when_posted;
     private int profile_image;
     private Bitmap post_image;
+    ;
     private List<Comment> comments;
 
     public Post(String content, String when_posted, int profile_image, Bitmap post_image) {
