@@ -34,7 +34,8 @@
             android:hint="@string/login_etPassword"
             android:inputType="textPassword"
             android:minHeight="48dp" />
-        <LinearLayout
+         <LinearLayout
+             android:orientation="vertical"
             android:id="@+id/message_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

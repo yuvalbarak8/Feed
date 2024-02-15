@@ -30,12 +30,9 @@
                 android:layout_gravity="start"
                 android:background="@drawable/button_background"
                 android:text="Dark Mode"
-
-               android:textColor="@color/white" />
-
-                android:backgroundTint="@color/black"
                 android:textColor="@color/white"
-                android:layout_gravity="center"/>
+                android:backgroundTint="@color/black"
+                />
 
 
             <TextView
@@ -53,6 +50,7 @@
                 android:layout_gravity="end"
                 android:background="@drawable/button_background"
                 android:text="LogOut"
+                android:backgroundTint="@color/red"
                 android:textColor="@color/white" />
 
         </LinearLayout>
@@ -82,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/button_background"
+                android:backgroundTint="@color/blue"
                 android:padding="10dp"
                 android:text="Upload Image"
 
@@ -96,7 +94,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/button_background"
+                android:backgroundTint="@color/green"
                 android:gravity="center"
                 android:text="Submit"
 
@@ -119,7 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cancel upload"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:backgroundTint="@color/red"/>
     </LinearLayout>
 
     <LinearLayout
