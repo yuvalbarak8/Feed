@@ -9,22 +9,22 @@ import java.util.List;
 public class Post {
 
     private String content;
-    private String when_posted;
+    private String username;
     private int profile_image;
     private Bitmap post_image;
     ;
     private List<Comment> comments;
 
-    public Post(String content, String when_posted, int profile_image, Bitmap post_image) {
+    public Post(String content, String username, int profile_image, Bitmap post_image) {
         this.content = content;
-        this.when_posted = when_posted;
+        this.username = username;
         this.profile_image = R.drawable.profile_image;
         this.post_image = post_image;
         this.comments = new ArrayList<>();
     }
-    public Post(String content, String when_posted, int profile_image) {
+    public Post(String content, String username, int profile_image) {
         this.content = content;
-        this.when_posted = when_posted;
+        this.username = username;
         this.profile_image = R.drawable.profile_image;
         this.post_image = null;
         this.comments = new ArrayList<>();
@@ -34,8 +34,8 @@ public class Post {
         return this.content;
     }
 
-    public String getWhen_posted() {
-        return this.when_posted;
+    public String getUsername() {
+        return this.username;
     }
 
     public int getProfile_image() {
@@ -46,7 +46,7 @@ public class Post {
         return this.post_image;
     }
     public void add_comment(Comment comment) {
-        this.comments.add(comment);
+        this.comments.add(0, comment);
     }
 
     public void setContent(String content) {

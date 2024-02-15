@@ -34,18 +34,29 @@
             android:hint="@string/login_etPassword"
             android:inputType="textPassword"
             android:minHeight="48dp" />
-        <LinearLayout
-            android:id="@+id/error_layout"
+         <LinearLayout
+             android:orientation="vertical"
+            android:id="@+id/message_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone">
             <TextView
                 android:id="@+id/login_error"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/login_error"
                 android:textColor="#FF0000"
+                />
+            <TextView
+                android:id="@+id/correct"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Correct! pass you to the feed..."
+                android:textColor="@color/happy"
                 />
         </LinearLayout>
 
@@ -67,11 +78,10 @@
     <LinearLayout
         android:layout_width="265dp"
         android:layout_height="133dp"
-        android:padding="20dp"
         android:gravity="center"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.854">
@@ -79,8 +89,8 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="265dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             app:srcCompat="@drawable/icon" />
