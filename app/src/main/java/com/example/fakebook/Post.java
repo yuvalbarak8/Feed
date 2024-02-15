@@ -46,7 +46,7 @@ public class Post {
         return this.post_image;
     }
     public void add_comment(Comment comment) {
-        this.comments.add(comment);
+        this.comments.add(0, comment);
     }
 
     public void setContent(String content) {
