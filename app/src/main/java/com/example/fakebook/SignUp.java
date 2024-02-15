@@ -33,6 +33,7 @@ public class SignUp extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                validateUsername();
                 validatePassword();
             }
         });
@@ -44,13 +45,30 @@ public class SignUp extends AppCompatActivity {
             }
         });
     }
+    private void validateUsername() {
+        EditText usernameEditText = findViewById(R.id.editTextTextPersonName);
+        TextView errorTextView = findViewById(R.id.textViewUsernameError); // Reusing the password error TextView for simplicity
+
+        String username = usernameEditText.getText().toString().trim();
+        Pattern pattern = Pattern.compile("^[a-zA-Z_][a-zA-Z0-9_]{3,19}$");
+        Matcher matcher = pattern.matcher(username);
+
+        if (username.isEmpty()) {
+            errorTextView.setText("Username cannot be empty");
+        } else if (!matcher.matches()) {
+            errorTextView.setText("Invalid username. Must have alphabet letters, and numbers");
+        } else {
+            errorTextView.setText("Good Username"); // Clear any previous error messages
+        }
+    }
 
     private void validatePassword() {
         EditText passwordEditText = findViewById(R.id.editTextTextPassword);
         TextView errorTextView = findViewById(R.id.textViewPasswordError);
 
         String password = passwordEditText.getText().toString();
-        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$");
+        // Updated pattern to include at least one digit, one lowercase letter, one uppercase letter, and one special character
+        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\|,.<>\\/?]).{8,}$");
         Matcher matcher = pattern.matcher(password);
 
         if (password.isEmpty()) {
@@ -58,13 +76,13 @@ public class SignUp extends AppCompatActivity {
         } else if (password.length() < 8) {
             errorTextView.setText("Password must be at least 8 characters long");
         } else if (!matcher.matches()) {
-            errorTextView.setText("Password must contain at least one digit, one letter, and one special character");
+            errorTextView.setText("Password must contain at least one digit, one lowercase letter, one uppercase letter, and one special character");
         } else {
-            // Password is valid, perform signup or other actions
-            errorTextView.setText(""); // Clear any previous error messages
+            errorTextView.setText("Good Password"); // Indicate the password is strong/correct
             // Add your signup logic here
         }
     }
+
 
     private void showImagePickerDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

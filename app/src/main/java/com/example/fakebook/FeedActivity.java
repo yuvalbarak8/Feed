@@ -50,6 +50,22 @@ public class FeedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        Button logoutButton = findViewById(R.id.logout_btn);
+        logoutButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FeedActivity.this,MainActivity.class);
+
+                // Optional: If you want to clear all previous activities on the stack
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                // Start MainActivity
+                startActivity(intent);
+                // Optionally, if you want to finish the current activity
+                finish();
+            }
+        });
+
         Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
         TextView img_select_text = findViewById(R.id.img_selected_text);
         cancel_img_btn.setOnClickListener(v->
