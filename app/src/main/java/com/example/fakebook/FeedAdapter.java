@@ -93,7 +93,6 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.delete_post_btn = convertView.findViewById(R.id.delete_post_btn);
             convertView.setTag(viewHolder);
         }
-
         Post p = posts.get(position);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.name.setText(p.getContent());
@@ -107,7 +106,12 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.img.setImageBitmap(p.getPost_image());
         }
         viewHolder.like_btn.setOnClickListener(v -> {
-            viewHolder.like_btn.setBackgroundColor(R.drawable.ic_launcher_background);
+            if(viewHolder.like_btn.getBackground()==null) {
+                viewHolder.like_btn.setBackgroundColor(R.drawable.ic_launcher_background);
+            }
+            else {
+                viewHolder.like_btn.setBackground(null);
+            }
         });
         // click on edit button
         viewHolder.edit_btn.setOnClickListener(v->{
