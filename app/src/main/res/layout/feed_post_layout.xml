@@ -36,11 +36,11 @@
         android:background="@android:color/transparent"
         android:text="edit"
         android:textStyle="normal"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/feed_post_profile_img"
-        app:layout_constraintTop_toBottomOf="@+id/feed_post_when"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/feed_post_when" />
 
     <TextView
         android:id="@+id/feed_post_when"
@@ -65,12 +65,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="93dp"
+        android:layout_width="409dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="486dp"
+        android:layout_marginBottom="184dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/feed_post_img"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="1dp">
 
         <Button
@@ -115,48 +116,6 @@
             android:textSize="10sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/comments_area"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <TextView
-            android:id="@+id/error_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="please write something"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/new_comment_text"
-            android:layout_width="284dp"
-            android:layout_height="83dp"
-            android:layout_weight="1"
-            android:hint="new comment..."
-            tools:layout_editor_absoluteX="55dp"
-            tools:layout_editor_absoluteY="582dp" />
-
-        <Button
-            android:id="@+id/new_comment_btn"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:text="New Comment"
-            tools:layout_editor_absoluteX="55dp"
-            tools:layout_editor_absoluteY="665dp" />
-
-        <ListView
-            android:id="@+id/commentsListView"
-            android:layout_width="match_parent"
-            android:layout_height="200px"
-            android:layout_margin="5dp"
-            android:layout_weight="1" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -182,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 
         <Button
@@ -190,11 +149,61 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"/>
+            android:text="Edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/comments_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/error_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="please write something"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/new_comment_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:hint="New comment..."
+                android:minHeight="48dp" />
+
+            <Button
+                android:id="@+id/new_comment_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Comment" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/commentsListView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:layout_weight="4" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
