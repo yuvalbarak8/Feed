@@ -90,7 +90,13 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.name.setText(p.getContent());
         viewHolder.when.setText(p.getWhen_posted());
         viewHolder.profile.setImageResource(p.getProfile_image());
-        viewHolder.img.setImageResource(p.getImage());
+        if(p.getPost_image()==null) {
+            viewHolder.img.setVisibility(View.GONE);
+        }
+        else {
+            viewHolder.img.setVisibility(View.VISIBLE);
+            viewHolder.img.setImageBitmap(p.getPost_image());
+        }
         viewHolder.like_btn.setOnClickListener(v -> {
             viewHolder.like_btn.setBackgroundColor(R.drawable.ic_launcher_background);
         });

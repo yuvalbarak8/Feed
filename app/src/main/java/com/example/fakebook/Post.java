@@ -1,5 +1,7 @@
 package com.example.fakebook;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,14 +10,21 @@ public class Post {
     private String content;
     private String when_posted;
     private int profile_image;
-    private int image;
+    private Bitmap post_image;
     private List<Comment> comments;
 
-    public Post(String content, String when_posted, int profile_image, int image) {
+    public Post(String content, String when_posted, int profile_image, Bitmap post_image) {
         this.content = content;
         this.when_posted = when_posted;
         this.profile_image = R.drawable.profile_image;
-        this.image = R.drawable.biden;
+        this.post_image = post_image;
+        this.comments = new ArrayList<>();
+    }
+    public Post(String content, String when_posted, int profile_image) {
+        this.content = content;
+        this.when_posted = when_posted;
+        this.profile_image = R.drawable.profile_image;
+        this.post_image = null;
         this.comments = new ArrayList<>();
     }
 
@@ -30,9 +39,9 @@ public class Post {
     public int getProfile_image() {
         return this.profile_image;
     }
-
-    public int getImage() {
-        return this.image;
+    public Bitmap getPost_image()
+    {
+        return this.post_image;
     }
     public void add_comment(Comment comment) {
         this.comments.add(comment);

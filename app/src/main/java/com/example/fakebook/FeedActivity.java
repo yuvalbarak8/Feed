@@ -16,12 +16,13 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FeedActivity extends Activity {
     private List<Post> posts;
-    private int image;
+    private Bitmap bitmap;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
 
@@ -29,6 +30,14 @@ public class FeedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
+        TextView img_select_text = findViewById(R.id.img_selected_text);
+        cancel_img_btn.setOnClickListener(v->
+        {
+            cancel_img_btn.setVisibility(View.GONE);
+            img_select_text.setVisibility(View.GONE);
+            this.bitmap = null;
+        });
         Button upload_img_btn = findViewById(R.id.upload_img_btn);
         upload_img_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +73,19 @@ public class FeedActivity extends Activity {
         Button submit = findViewById(R.id.submit_btn);
         submit.setOnClickListener(view -> {
             TextView new_post = findViewById(R.id.new_post);
+            cancel_img_btn.setVisibility(View.GONE);
+            img_select_text.setVisibility(View.GONE);
             String post_content = new_post.getText().toString();
             if(!post_content.equals("")) {
-                Post post = new Post(post_content, "12/12/13", 1, 2);
-                posts.add(0, post);
+                if(bitmap==null) {
+                    Post post = new Post(post_content, "12/12/13", 1);
+                    posts.add(0, post);
+                }
+                else {
+                    Post post = new Post(post_content, "12/12/13", 1, this.bitmap);
+                    posts.add(0, post);
+                }
+
                 error_post.setVisibility(View.GONE);
                 feedAdapter.notifyDataSetChanged();
                 new_post.setText("");
@@ -91,11 +109,11 @@ public class FeedActivity extends Activity {
 
     private List<Post> generatePosts() {
         List<Post> posts = new ArrayList<>();
-        Post test1 = new Post("Hello World", "12/12/12", 1, 2);
+        Post test1 = new Post("Hello World", "12/12/12", 1);
         Comment new_comment = new Comment("wowwwww");
         test1.add_comment(new_comment);
-        Post test2 = new Post("Hello World1", "12/12/12", 1, 2);
-        Post test3 = new Post("Hello World2", "12/12/12", 1, 2);
+        Post test2 = new Post("Hello World1", "12/12/12", 1);
+        Post test3 = new Post("Hello World2", "12/12/12", 1);
         posts.add(test1);
         posts.add(test2);
         posts.add(test3);
@@ -130,18 +148,29 @@ public class FeedActivity extends Activity {
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        TextView img_select_text = findViewById(R.id.img_selected_text);
+        Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri imageUri = data.getData();
-        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null) {
-            // Handle the camera result here, e.g., set the captured image to the ImageView
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Uri selectedImageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                this.bitmap = bitmap;
+                img_select_text.setVisibility(View.VISIBLE);
+                cancel_img_btn.setVisibility(View.VISIBLE);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null) {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            this.bitmap = bitmap;
+            img_select_text.setVisibility(View.VISIBLE);
+            cancel_img_btn.setVisibility(View.VISIBLE);
+
         }
     }
 }
