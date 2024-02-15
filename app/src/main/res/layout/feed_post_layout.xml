@@ -40,10 +40,10 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/feed_post_profile_img"
-        app:layout_constraintTop_toBottomOf="@+id/feed_post_when" />
+        app:layout_constraintTop_toBottomOf="@+id/feed_username" />
 
     <TextView
-        android:id="@+id/feed_post_when"
+        android:id="@+id/feed_username"
         android:layout_width="287dp"
         android:layout_height="39dp"
         android:text="TextView"
@@ -60,7 +60,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/feed_post_when"
+        app:layout_constraintTop_toTopOf="@id/feed_username"
         app:layout_constraintVertical_bias="0.401" />
 
 
@@ -136,6 +136,7 @@
             android:id="@+id/delete_post_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
             android:text="Delete"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layout_editor_absoluteY="119dp" />
@@ -145,7 +146,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:backgroundTint="@color/green"/>
 
 
         <Button
@@ -159,7 +161,8 @@
             android:id="@+id/edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit" />
+            android:text="Edit"
+            android:backgroundTint="@color/blue"/>
     </LinearLayout>
 
     <LinearLayout

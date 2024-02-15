@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button btnSign = findViewById(R.id.btnSignup);
         btnSign.setOnClickListener(view -> {
             Intent i = new Intent(this, SignUp.class);

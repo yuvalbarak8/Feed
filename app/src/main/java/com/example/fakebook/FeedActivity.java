@@ -1,21 +1,39 @@
 package com.example.fakebook;
+import static com.example.fakebook.JsonFileReader.readJsonFile;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +49,7 @@ public class FeedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
         Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
         TextView img_select_text = findViewById(R.id.img_selected_text);
         cancel_img_btn.setOnClickListener(v->
@@ -79,11 +98,11 @@ public class FeedActivity extends Activity {
             String post_content = new_post.getText().toString();
             if(!post_content.equals("")) {
                 if(bitmap==null) {
-                    Post post = new Post(post_content, "12/12/13", 1);
+                    Post post = new Post(post_content, "Israel123", 1);
                     posts.add(0, post);
                 }
                 else {
-                    Post post = new Post(post_content, "12/12/13", 1, this.bitmap);
+                    Post post = new Post(post_content, "Israel123", 1, this.bitmap);
                     posts.add(0, post);
                 }
 
@@ -105,20 +124,65 @@ public class FeedActivity extends Activity {
     // Function to apply night mode styles
     private void applyNightModeStyles() {
         // Set background color, text color, or any other styles for night mode
-        findViewById(R.id.feed_page).setBackgroundColor(getResources().getColor(R.color.dark_background));
+        findViewById(R.id.feed_page).setBackgroundColor(getResources().getColor(R.color.gray));
     }
 
     private List<Post> generatePosts() {
         List<Post> posts = new ArrayList<>();
-        Post test1 = new Post("Hello World", "12/12/12", 1);
-        Comment new_comment = new Comment("wowwwww");
-        test1.add_comment(new_comment);
-        Post test2 = new Post("Hello World1", "12/12/12", 1);
-        Post test3 = new Post("Hello World2", "12/12/12", 1);
-        posts.add(test1);
-        posts.add(test2);
-        posts.add(test3);
+        int resourceId = R.raw.posts;
+        String jsonString = readJsonFile(getResources(), resourceId);
+        if (jsonString != null) {
+            try {
+                // Parse the JSON array
+                JSONArray jsonArray = new JSONArray(jsonString);
+                for(int i =0; i< jsonArray.length();i++) {
+                    // Get the object
+
+                        JSONObject object = jsonArray.getJSONObject(i);
+                    Bitmap bitmap = null;
+                    if(i<6)
+                    {
+                        Bitmap defaultProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.nature);
+                        if (i % 2 == 1) {
+                            defaultProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.neture2);
+                        }
+
+                        // Convert the default profile image to a Base64-encoded string
+                        String base64EncodedDefaultImage = encodeBitmapToBase64(defaultProfileImage);
+                        object.put("bitmap", base64EncodedDefaultImage);
+                        // Get the "bitmap" value
+                         bitmap = decodeBase64ToBitmap(object.getString("bitmap"));
+                    }
+                    // Get the "content" value
+                    String contentValue = object.getString("content");
+                    // Get the "username" value
+                    String usernameValue = object.getString("username");
+                    // Get the "profile_image" value
+                    int profileValue = object.getInt("profile_image");
+
+                    // Print the "content" value
+                    Post post = new Post(contentValue, usernameValue, profileValue, bitmap);
+                    posts.add(post);
+                }
+
+            } catch (JSONException e) {
+
+            }
+        }
+
         return posts;
+    }
+    // Method to convert a Base64-encoded string to a Bitmap
+    private Bitmap decodeBase64ToBitmap(String base64EncodedString) {
+        byte[] decodedBytes = Base64.decode(base64EncodedString, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+    // Method to convert a Bitmap to a Base64-encoded string
+    private String encodeBitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
     private void showImagePickerDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
