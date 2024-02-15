@@ -40,6 +40,10 @@ public class FeedAdapter extends BaseAdapter {
         EditText new_comment_text;
         TextView error_empty_comment;
         Button like_btn;
+        Button edit_btn;
+        EditText edit_post_text;
+        Button cancel_edit;
+        Button save_edit;
     }
 
     public FeedAdapter(List<Post> posts, Activity activity) {
@@ -81,7 +85,10 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.new_comment_text = convertView.findViewById(R.id.new_comment_text);
             viewHolder.error_empty_comment = convertView.findViewById(R.id.error_comment);
             viewHolder.like_btn = convertView.findViewById(R.id.like_btn);
-
+            viewHolder.cancel_edit = convertView.findViewById(R.id.cancel_edit);
+            viewHolder.save_edit = convertView.findViewById(R.id.save_edit);
+            viewHolder.edit_post_text = convertView.findViewById(R.id.editPost);
+            viewHolder.edit_btn = convertView.findViewById(R.id.edit_btn);
             convertView.setTag(viewHolder);
         }
 
@@ -99,6 +106,34 @@ public class FeedAdapter extends BaseAdapter {
         }
         viewHolder.like_btn.setOnClickListener(v -> {
             viewHolder.like_btn.setBackgroundColor(R.drawable.ic_launcher_background);
+        });
+        // click on edit button
+        viewHolder.edit_btn.setOnClickListener(v->{
+            viewHolder.edit_post_text.setText(p.getContent());
+            viewHolder.edit_post_text.setVisibility(View.VISIBLE);
+            viewHolder.edit_btn.setVisibility(View.GONE);
+            viewHolder.name.setVisibility(View.GONE);
+            viewHolder.save_edit.setVisibility(View.VISIBLE);
+            viewHolder.cancel_edit.setVisibility(View.VISIBLE);
+        });
+        // when cancel the edit
+        viewHolder.cancel_edit.setOnClickListener(v->{
+            viewHolder.edit_post_text.setVisibility(View.GONE);
+            viewHolder.edit_btn.setVisibility(View.VISIBLE);
+            viewHolder.name.setVisibility(View.VISIBLE);
+            viewHolder.save_edit.setVisibility(View.GONE);
+            viewHolder.cancel_edit.setVisibility(View.GONE);
+        });
+        // when save the changes
+        viewHolder.save_edit.setOnClickListener(v->{
+            String new_text = viewHolder.edit_post_text.getText().toString();
+            p.setContent(new_text);
+            viewHolder.name.setText(new_text);
+            viewHolder.edit_post_text.setVisibility(View.GONE);
+            viewHolder.edit_btn.setVisibility(View.VISIBLE);
+            viewHolder.name.setVisibility(View.VISIBLE);
+            viewHolder.save_edit.setVisibility(View.GONE);
+            viewHolder.cancel_edit.setVisibility(View.GONE);
         });
 
         CommentAdapter commentAdapter = new CommentAdapter(this.activity, p.getComments());
