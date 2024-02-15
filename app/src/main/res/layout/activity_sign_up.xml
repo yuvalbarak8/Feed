@@ -29,6 +29,13 @@
             android:inputType="textPersonName"
             android:minHeight="48dp" />
 
+        <TextView
+            android:id="@+id/textViewUsernameError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/holo_red_dark" />
+
         <!-- Password EditText -->
         <EditText
             android:id="@+id/editTextTextPassword"
@@ -52,25 +59,11 @@
         <!-- TextView for password validation error -->
         <TextView
             android:id="@+id/textViewPasswordError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@android:color/holo_red_dark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextVerifyPassword" />
-
-        <!-- Nickname EditText -->
-        <EditText
-            android:id="@+id/editTe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/SignUp_etNickname"
-            android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:text=""
+            android:textColor="@android:color/holo_red_dark" />
 
-        <!-- Sign Up Button -->
     </LinearLayout>
 
     <!-- Profile Image Section -->
@@ -116,8 +109,10 @@
         android:layout_width="170dp"
         android:layout_height="71dp"
         android:padding="20dp"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="49dp">
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Facebook Logo ImageView -->
         <ImageView
@@ -130,7 +125,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Facebook"
+            android:text="@string/Fakebook"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

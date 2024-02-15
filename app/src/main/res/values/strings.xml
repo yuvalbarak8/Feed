@@ -24,4 +24,5 @@
     <string name="post_content">Hello World\n</string>
     <string name="title_activity_feed">Feed</string>
     <string name="submit_button">submit</string>
+    <string name="Fakebook">Fakebook</string>
 </resources>

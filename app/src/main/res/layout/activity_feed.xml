@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feed_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FeedActivity"
-    android:id="@+id/feed_page">
+    tools:context=".FeedActivity">
 
     <LinearLayout
         android:id="@+id/llInput"
@@ -16,18 +16,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
 
             <Button
                 android:id="@+id/nightModeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
+                android:layout_gravity="start"
                 android:background="@drawable/button_background"
                 android:text="Dark Mode"
-                android:textColor="@color/white"
-                android:layout_gravity="center"/>
+                android:textColor="@color/white" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Hello Israel123"
+                android:textSize="20dp"/>
 
+            <Button
+                android:id="@+id/logout_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:background="@drawable/button_background"
+                android:text="LogOut"
+                android:textColor="@color/white" />
 
+        </LinearLayout>
 
         <EditText
             android:id="@+id/new_post"
@@ -35,51 +57,54 @@
             android:layout_height="66dp"
             android:background="@color/material_dynamic_primary95"
             android:hint="What's up with you today?" />
+
         <TextView
+            android:id="@+id/error_empty_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="please write something"
-            android:visibility="gone"
-            android:id="@+id/error_empty_post"/>
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/upload_img_btn"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/button_background"
-               android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_background"
+                android:padding="10dp"
                 android:text="Upload Image"
-                android:padding="10dp"/>
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/submit_btn"
-                android:background="@drawable/button_background"
-                android:textColor="@color/white"
-                android:layout_marginLeft="10dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_background"
+                android:gravity="center"
                 android:text="Submit"
-                android:gravity="center"/>
+                android:textColor="@color/white" />
         </LinearLayout>
+
         <TextView
+            android:id="@+id/img_selected_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/img_selected_text"
             android:text="picture taken"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <Button
+            android:id="@+id/cancel_img_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cancel_img_btn"
             android:text="cancel upload"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
