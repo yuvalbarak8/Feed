@@ -30,7 +30,7 @@ public class FeedAdapter extends BaseAdapter {
 
     private class ViewHolder {
         TextView name;
-        TextView when;
+        TextView username;
         ImageView profile;
         ImageView img;
         Button comments;
@@ -76,7 +76,7 @@ public class FeedAdapter extends BaseAdapter {
 
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.name = convertView.findViewById(R.id.feed_post_name);
-            viewHolder.when = convertView.findViewById(R.id.feed_post_when);
+            viewHolder.username = convertView.findViewById(R.id.feed_username);
             viewHolder.profile = convertView.findViewById(R.id.feed_post_profile_img);
             viewHolder.img = convertView.findViewById(R.id.feed_post_img);
             viewHolder.comments = convertView.findViewById(R.id.comments_btn);
@@ -93,11 +93,10 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.delete_post_btn = convertView.findViewById(R.id.delete_post_btn);
             convertView.setTag(viewHolder);
         }
-
         Post p = posts.get(position);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.name.setText(p.getContent());
-        viewHolder.when.setText(p.getWhen_posted());
+        viewHolder.username.setText(p.getUsername());
         viewHolder.profile.setImageResource(p.getProfile_image());
         if(p.getPost_image()==null) {
             viewHolder.img.setVisibility(View.GONE);

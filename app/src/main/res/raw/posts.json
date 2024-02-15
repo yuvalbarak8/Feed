@@ -1,0 +1,62 @@
+[
+  {
+    "content": "hello!",
+    "username": "itamar",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "hello, my name is yuval",
+    "username": "yuval",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "Good evening",
+    "username": "Yedidya",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "I like to play tennis",
+    "username": "Avram",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "hi, what's up?",
+    "username": "itamar",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "hello for all my friends",
+    "username": "Yuval",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "hello world",
+    "username": "itamar",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "i am living in Tel Aviv",
+    "username": "shai",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "I like pizza",
+    "username": "Or",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  },
+  {
+    "content": "Good morning!",
+    "username": "Moshe",
+    "profile_image": 1,
+    "bitmap": "BASE64_ENCODED_STRING"
+  }
+]

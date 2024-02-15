@@ -35,17 +35,27 @@
             android:inputType="textPassword"
             android:minHeight="48dp" />
         <LinearLayout
-            android:id="@+id/error_layout"
+            android:id="@+id/message_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone">
             <TextView
                 android:id="@+id/login_error"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/login_error"
                 android:textColor="#FF0000"
+                />
+            <TextView
+                android:id="@+id/correct"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Correct! pass you to the feed..."
+                android:textColor="@color/happy"
                 />
         </LinearLayout>
 
