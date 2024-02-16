@@ -11,7 +11,7 @@
     </string-array>
     <string name="login_etUsername">Username</string>
     <string name="login_etPassword">Password</string>
-    <string name="login_btnLogin">login</string>
+    <string name="login_btnLogin">Login</string>
     <string name="Facebook">Facebook</string>
     <string name="Signup">Make a new account</string>
     <string name="SignUp_etUsername">Username</string>
