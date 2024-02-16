@@ -23,8 +23,8 @@
     <Button
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:text="Edit"
-        android:textSize="10dp"
+        android:text="@string/edit"
+        android:textSize="10sp"
         android:id="@+id/edit_comment_btn"
         android:backgroundTint="@color/blue"
         android:visibility="visible"/>
@@ -32,16 +32,16 @@
     <Button
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:text="Delete"
-        android:textSize="10dp"
+        android:text="@string/delete"
+        android:textSize="10sp"
         android:id="@+id/delete_comment_btn"
         android:backgroundTint="@color/red"
         android:visibility="visible"/>
     <Button
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:text="Save"
-        android:textSize="10dp"
+        android:text="@string/save"
+        android:textSize="10sp"
         android:id="@+id/save_comment_btn"
         android:backgroundTint="@color/green"
         android:visibility="gone"/>
@@ -49,8 +49,8 @@
     <Button
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:text="Cancel"
-        android:textSize="10dp"
+        android:text="@string/cancel"
+        android:textSize="10sp"
         android:id="@+id/cancel_comment_btn"
         android:backgroundTint="@color/red"
         android:visibility="gone"/>

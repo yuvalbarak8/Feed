@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Correct! pass you to the feed..."
+                android:text="@string/correct_pass_you_to_the_feed"
                 android:textColor="#e28743"
                 />
         </LinearLayout>
