@@ -86,8 +86,6 @@
 
                 android:textColor="@color/white" />
 
-                android:padding="10dp"
-                android:backgroundTint="@color/blue"/>
 
             <Button
                 android:id="@+id/submit_btn"
@@ -99,9 +97,6 @@
                 android:text="Submit"
 
                 android:textColor="@color/white" />
-
-                android:gravity="center"
-                android:backgroundTint="@color/green"/>
 
         </LinearLayout>
 
