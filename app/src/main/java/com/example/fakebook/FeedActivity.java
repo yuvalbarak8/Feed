@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +22,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -38,6 +42,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FeedActivity extends Activity {
     private List<Post> posts;
@@ -124,6 +129,7 @@ public class FeedActivity extends Activity {
 
                 error_post.setVisibility(View.GONE);
                 feedAdapter.notifyDataSetChanged();
+                this.bitmap = null;
                 new_post.setText("");
             }
             else {
@@ -135,12 +141,18 @@ public class FeedActivity extends Activity {
     private void applyLightModeStyles() {
         // Set background color, text color, or any other styles for light mode
         findViewById(R.id.feed_page).setBackgroundColor(getResources().getColor(R.color.light_background));
+        Button toggleModeButton = findViewById(R.id.nightModeButton);
+        toggleModeButton.setText("DARK MODE");
+        toggleModeButton.setBackgroundColor(getResources().getColor(R.color.dark_background));
     }
 
     // Function to apply night mode styles
     private void applyNightModeStyles() {
         // Set background color, text color, or any other styles for night mode
         findViewById(R.id.feed_page).setBackgroundColor(getResources().getColor(R.color.gray));
+        Button toggleModeButton = findViewById(R.id.nightModeButton);
+        toggleModeButton.setText("LIGHT MODE");
+        toggleModeButton.setBackgroundColor(getResources().getColor(R.color.light_background));
     }
 
     private List<Post> generatePosts() {
@@ -228,16 +240,40 @@ public class FeedActivity extends Activity {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
     }
+    public String getImageFormat(Context context, Uri uri) {
+        ContentResolver contentResolver = context.getContentResolver();
 
+        // Try to get the MIME type directly from the ContentResolver
+        String mimeType = contentResolver.getType(uri);
+        if (mimeType != null) {
+            return MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+        }
+
+        // If MIME type is not available, try to extract file extension from URI
+        String path = uri.getPath();
+        if (path != null) {
+            int lastDotIndex = path.lastIndexOf(".");
+            if (lastDotIndex != -1) {
+                return path.substring(lastDotIndex + 1);
+            }
+        }
+
+        // If all else fails, return null or a default value based on your requirements
+        return null;
+    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        TextView img_select_text = findViewById(R.id.img_selected_text);
-        Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri selectedImageUri = data.getData();
+            if(!Objects.equals(getImageFormat(this, selectedImageUri), "jpeg") &&
+                    !Objects.equals(getImageFormat(this, selectedImageUri), "png") &&
+                    !Objects.equals(getImageFormat(this, selectedImageUri), "jpg"))
+                return;
+            TextView img_select_text = findViewById(R.id.img_selected_text);
+            Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
                 this.bitmap = bitmap;
@@ -249,6 +285,8 @@ public class FeedActivity extends Activity {
         } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             this.bitmap = bitmap;
+            TextView img_select_text = findViewById(R.id.img_selected_text);
+            Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
             img_select_text.setVisibility(View.VISIBLE);
             cancel_img_btn.setVisibility(View.VISIBLE);
 

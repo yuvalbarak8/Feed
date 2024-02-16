@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SignUp">
+    tools:context=".SignUp"
+    android:background="#f0f2f5">
 
     <!-- Existing Login LinearLayout -->
     <LinearLayout
@@ -29,13 +30,6 @@
             android:inputType="textPersonName"
             android:minHeight="48dp" />
 
-        <TextView
-            android:id="@+id/textViewUsernameError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@android:color/holo_red_dark" />
-
         <!-- Password EditText -->
         <EditText
             android:id="@+id/editTextTextPassword"
@@ -45,7 +39,6 @@
             android:hint="@string/SignUp_etPassword"
             android:inputType="textPassword"
             android:minHeight="48dp" />
-
         <!-- Verify Password EditText -->
         <EditText
             android:id="@+id/editTextVerifyPassword"
@@ -56,13 +49,14 @@
             android:inputType="textPassword"
             android:minHeight="48dp" />
 
-        <!-- TextView for password validation error -->
-        <TextView
-            android:id="@+id/textViewPasswordError"
+        <!-- Nickname Image Section -->
+        <EditText
+            android:id="@+id/nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@android:color/holo_red_dark" />
+            android:ems="10"
+            android:hint="@string/nickname"
+            android:minHeight="48dp" />
 
     </LinearLayout>
 
@@ -76,17 +70,15 @@
         app:layout_constraintTop_toBottomOf="@id/linearLayout"
         tools:ignore="ExtraText">
 
-        <!-- Profile Image ImageView -->
-        <!-- Profile Image ImageView -->
-
-
         <!-- Upload Image Button -->
+
         <Button
             android:id="@+id/btnUploadImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Upload Image" />
+            android:backgroundTint="#1e81b0"
+            android:text="@string/upload_image_btn" />
 
         <ImageView
             android:id="@+id/profileImageView"
@@ -94,21 +86,28 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:contentDescription="@string/Signup"
-            android:src="@drawable/ic_logo" />
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btnSignupTwo"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="#42b72a"
+            android:layout_marginTop="15dp"
             android:text="@string/SignUp_etSignup" />
 
+        <TextView
+            android:id="@+id/text_sign_up"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff0000" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="170dp"
-        android:layout_height="71dp"
-        android:padding="20dp"
+        android:layout_width="265dp"
+        android:layout_height="134dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,23 +115,11 @@
 
         <!-- Facebook Logo ImageView -->
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_logo" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Fakebook"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.657" />
+            android:layout_width="0dp"
+            android:layout_height="134dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon" />
 
         <!-- Facebook TextView -->
     </LinearLayout>

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,11 +17,11 @@ public class CommentAdapter extends BaseAdapter {
     private List<Comment> comments;
     private LayoutInflater inflater;
 
-
     public CommentAdapter(Context context, List<Comment> comments) {
         this.comments = comments;
         this.inflater = LayoutInflater.from(context);
     }
+
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
@@ -69,11 +71,54 @@ public class CommentAdapter extends BaseAdapter {
 
         Comment comment = comments.get(position);
         viewHolder.commentTextView.setText(comment.getContent());
+        viewHolder.comment_delete = convertView.findViewById(R.id.delete_comment_btn);
+        viewHolder.comment_edit = convertView.findViewById(R.id.edit_comment_btn);
+        viewHolder.text_edit_comment = convertView.findViewById(R.id.text_edit_comment);
+        viewHolder.save_comment = convertView.findViewById(R.id.save_comment_btn);
+        viewHolder.cancel_comment = convertView.findViewById(R.id.cancel_comment_btn);
+        viewHolder.comment_delete.setOnClickListener(v->{
+            comments.remove(comment);
+            this.notifyDataSetChanged();
+        });
+        viewHolder.comment_edit.setOnClickListener(v->{
+            viewHolder.commentTextView.setVisibility(View.GONE);
+            viewHolder.comment_edit.setVisibility(View.GONE);
+            viewHolder.comment_delete.setVisibility(View.GONE);
+            viewHolder.text_edit_comment.setText(comment.getContent());
+            viewHolder.text_edit_comment.setVisibility(View.VISIBLE);
+            viewHolder.save_comment.setVisibility(View.VISIBLE);
+            viewHolder.cancel_comment.setVisibility(View.VISIBLE);
+        });
+        viewHolder.cancel_comment.setOnClickListener(v->{
+            viewHolder.commentTextView.setVisibility(View.VISIBLE);
+            viewHolder.comment_edit.setVisibility(View.VISIBLE);
+            viewHolder.comment_delete.setVisibility(View.VISIBLE);
+            viewHolder.text_edit_comment.setVisibility(View.GONE);
+            viewHolder.save_comment.setVisibility(View.GONE);
+            viewHolder.cancel_comment.setVisibility(View.GONE);
+        });
+        viewHolder.save_comment.setOnClickListener(v->{
+            viewHolder.commentTextView.setVisibility(View.VISIBLE);
+            viewHolder.comment_edit.setVisibility(View.VISIBLE);
+            viewHolder.comment_delete.setVisibility(View.VISIBLE);
+            viewHolder.text_edit_comment.setVisibility(View.GONE);
+            viewHolder.save_comment.setVisibility(View.GONE);
+            viewHolder.cancel_comment.setVisibility(View.GONE);
+            String new_comment = viewHolder.text_edit_comment.getText().toString();
+            comment.setContent(new_comment);
+            this.notifyDataSetChanged();
+        });
+
 
         return convertView;
     }
 
     private static class ViewHolder {
         TextView commentTextView;
+        Button comment_edit;
+        Button comment_delete;
+        Button save_comment;
+        Button cancel_comment;
+        EditText text_edit_comment;
     }
 }

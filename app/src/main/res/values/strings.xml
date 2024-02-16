@@ -13,7 +13,7 @@
     <string name="login_etPassword">Password</string>
     <string name="login_btnLogin">login</string>
     <string name="Facebook">Facebook</string>
-    <string name="Signup">Signup</string>
+    <string name="Signup">Make a new account</string>
     <string name="SignUp_etUsername">Username</string>
     <string name="SignUp_etPassword">password</string>
     <string name="SignUp_etVerifyPassword">Verify Password</string>
@@ -29,5 +29,31 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nickname">Nickname</string>
+    <string name="upload_image_btn">Upload Image</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="hello_israel123">Hello Israel123</string>
+    <string name="logout">LogOut</string>
+    <string name="what_s_up_with_you_today">What\'s up with you today?</string>
+    <string name="please_write_something">please write something</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="submit">Submit</string>
+    <string name="picture_taken">picture taken</string>
+    <string name="cancel_upload">cancel upload</string>
+    <string name="correct_pass_you_to_the_feed">Correct! pass you to the feed...</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit_post">edit</string>
+    <string name="textview">TextView</string>
+    <string name="like_btn">Like</string>
+    <string name="delete_btn">Delete</string>
+    <string name="save_btn">Save</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="edit_btn">Edit</string>
+    <string name="_please_write_something">please write something</string>
+    <string name="new_comment">New comment...</string>
+    <string name="new_comment1">New Comment</string>
 
 </resources>
