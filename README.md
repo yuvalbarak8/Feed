@@ -14,7 +14,7 @@ Collaborative Design Efforts
 In addition to their individual contributions, the team worked collaboratively on the overall design of the application. Our design centered around simplicity, ease of navigation, and a visually appealing interface that enhances the user experience.
 
 Running the Application
-
+The app is designed to English language.
 The app can be launched through the Android Studio IDE. The login details provided (username and password "Israel123") allow for a straightforward demonstration of the app's functionality and user interface.
 
 
