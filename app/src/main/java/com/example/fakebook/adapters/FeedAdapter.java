@@ -1,11 +1,6 @@
-package com.example.fakebook;
+package com.example.fakebook.adapters;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
+import com.example.fakebook.R;
+import com.example.fakebook.model.Comment;
+import com.example.fakebook.model.Post;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class FeedAdapter extends BaseAdapter {

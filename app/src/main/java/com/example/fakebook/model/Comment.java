@@ -1,4 +1,4 @@
-package com.example.fakebook;
+package com.example.fakebook.model;
 
 import java.io.Serializable;
 

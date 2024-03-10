@@ -1,12 +1,9 @@
-package com.example.fakebook;
+package com.example.fakebook.activities;
 import static com.example.fakebook.JsonFileReader.readJsonFile;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,7 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,22 +20,17 @@ import android.util.Base64;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import com.google.android.material.navigation.NavigationView;
+import com.example.fakebook.PostAPI;
+import com.example.fakebook.R;
+import com.example.fakebook.adapters.FeedAdapter;
+import com.example.fakebook.model.Post;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -106,7 +97,11 @@ public class FeedActivity extends Activity {
             }
         });
 
-        this.posts = generatePosts();
+//        //GET POSTS
+//        PostAPI postAPI = new PostAPI();
+//        postAPI.get();
+
+       this.posts = generatePosts();
         FeedAdapter feedAdapter = new FeedAdapter(this.posts, this);
         ListView lst = findViewById(R.id.lstFeed);
         lst.setAdapter(feedAdapter);

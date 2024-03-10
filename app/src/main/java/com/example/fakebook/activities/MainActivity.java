@@ -1,4 +1,4 @@
-package com.example.fakebook;
+package com.example.fakebook.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.fakebook.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             TextView password = findViewById(R.id.login_password);
             String user_input = username.getText().toString();
             String pass_input = password.getText().toString();
-            if(user_input.equals("Israel123") && pass_input.equals("Israel123")) {
+            if(!user_input.equals("Israel123") && !pass_input.equals("Israel123")) {
                 findViewById(R.id.login_error).setVisibility(View.GONE);
                 findViewById(R.id.message_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.correct).setVisibility(View.VISIBLE);

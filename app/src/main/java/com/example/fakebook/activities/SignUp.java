@@ -1,4 +1,4 @@
-package com.example.fakebook;
+package com.example.fakebook.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.fakebook.R;
 
 import java.util.Objects;
 import java.util.regex.Matcher;

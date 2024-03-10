@@ -1,7 +1,8 @@
-package com.example.fakebook;
+package com.example.fakebook.model;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+
+import com.example.fakebook.R;
 
 import java.util.ArrayList;
 import java.util.List;

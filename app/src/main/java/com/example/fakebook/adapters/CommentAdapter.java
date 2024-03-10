@@ -1,6 +1,5 @@
-package com.example.fakebook;
+package com.example.fakebook.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.fakebook.R;
+import com.example.fakebook.model.Comment;
 
 import java.util.List;
 

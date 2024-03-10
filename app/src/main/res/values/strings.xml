@@ -4,6 +4,7 @@
     <string name="comment">Comment</string>
     <string name="share">Share</string>
     <string name="comments">Comments</string>
+    <string name="BaseUrl">http://172.16.28.171:8989/</string>
     <string-array name="menu">
         <item>First</item>
         <item>Second</item>
