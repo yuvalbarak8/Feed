@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         else{
                             TextView login_error = findViewById(R.id.login_error);
                             findViewById(R.id.correct).setVisibility(View.GONE);
+                            login_error.setText(getText(R.string.login_error));
                             login_error.setVisibility(View.VISIBLE);
                             findViewById(R.id.message_layout).setVisibility(View.VISIBLE);
                         }
