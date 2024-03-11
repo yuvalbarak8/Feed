@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -32,8 +33,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class FeedActivity extends Activity {
@@ -144,25 +147,67 @@ public class FeedActivity extends Activity {
             img_select_text.setVisibility(View.GONE);
             String post_content = new_post.getText().toString();
             if (!post_content.equals("")) {
-                if (bitmap == null) {
-                    Post post = new Post(post_content, "Israel123", 1);
-                    posts.add(0, post);
-                } else {
-                    Post post = new Post(post_content, "Israel123", 1, bitmap);
-                    posts.add(0, post);
-                }
-
                 error_post.setVisibility(View.GONE);
-                // Assuming posts is a global variable
-                FeedAdapter feedAdapter = new FeedAdapter(posts, FeedActivity.this, user);
-                ListView lst = findViewById(R.id.lstFeed);
-                lst.setAdapter(feedAdapter);
                 bitmap = null;
                 new_post.setText("");
+                sendPostToServer(post_content);
             } else {
                 error_post.setVisibility(View.VISIBLE);
             }
         });
+    }
+    // Add a method to update the feed after sending a post
+    private void updateFeed() {
+        fetchPostsFromServer(new OnPostsFetchedListener() {
+            @Override
+            public void onPostsFetched(List<Post> postList) {
+                runOnUiThread(() -> {
+                    FeedAdapter feedAdapter = new FeedAdapter(postList, FeedActivity.this, user);
+                    ListView lst = findViewById(R.id.lstFeed);
+                    lst.setAdapter(feedAdapter);
+                });
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                runOnUiThread(() -> {
+                    Toast.makeText(FeedActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+    }
+    private void sendPostToServer(String post_content){
+        new Thread(() -> {
+            OkHttpClient client = new OkHttpClient();
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+            // Update the JSON format in the request body
+            String json = "{\"display\": \"" + user + "\", \"text\": \"" + post_content + "\", \"img\": \"default\", \"profile\": \"default\"}";
+
+            RequestBody requestBody = RequestBody.create(JSON, json);
+
+            Request request = new Request.Builder()
+                    .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/users/123/posts")
+                    .post(requestBody)
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                String responseBody = response.body().string();
+
+                runOnUiThread(() -> {
+                    updateFeed();
+
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("NetworkError", "Error during network operation: " + e.getMessage());
+                runOnUiThread(() -> {
+                    // Handle the error or show a message to the user
+                });
+            }
+        }).start();
     }
 
     private void applyLightModeStyles() {
@@ -293,7 +338,7 @@ public class FeedActivity extends Activity {
                     int profileValue = object.optInt("profilePic", 0);
 
                     Post post = new Post(contentValue, usernameValue, profileValue, bitmap);
-                    postList.add(post);
+                    postList.add(0, post);
                 }
 
                 runOnUiThread(() -> listener.onPostsFetched(postList));
