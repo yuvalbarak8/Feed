@@ -40,4 +40,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.0")
+    implementation("com.squareup.okhttp3:okhttp:3.14.9")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.12.12")
+
 }
