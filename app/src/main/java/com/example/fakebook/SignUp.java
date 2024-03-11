@@ -19,9 +19,16 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class SignUp extends AppCompatActivity {
 
@@ -66,67 +73,114 @@ public class SignUp extends AppCompatActivity {
         String password_again = password_again_edit.getText().toString();
         String nickname = nickname_edit.getText().toString();
 
-        // check if all fields are filled in
-        if(username.equals("") || password.equals("")|| password_again.equals("")||
-                nickname.equals(""))
-        {
-            message.setVisibility(View.VISIBLE);
-            message.setText("All fields are required.");
-            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
-            return;
-        }
-        // Validity check for username
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{6,10}$");
-        Matcher matcher = pattern.matcher(username);
-        if(!matcher.matches())
-        {
-            message.setVisibility(View.VISIBLE);
-            message.setText("Username must be 6-10 characters" +
-                    " without special characters.");
-            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
-            return;
-        }
-        // Validity check for password
-        Pattern pattern1 = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,14}$");
-        Matcher matcher1 = pattern1.matcher(password);
-        if(!matcher1.matches())
-        {
-            message.setVisibility(View.VISIBLE);
-            message.setText("Password must be 8-14 characters with at least one uppercase, one lowercase, and one number, without special characters.");
-            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
-            return;
-        }
-        // Checking whether the two passwords are the same
-        if(!password.equals(password_again))
-        {
-            message.setVisibility(View.VISIBLE);
-            message.setText("The passwords you typed are not the same.");
-            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
-            return;
-        }
-        // Validity check for nickname
-        Pattern pattern2 = Pattern.compile("^[a-zA-Z\\d]{4,8}$");
-        Matcher matcher2 = pattern2.matcher(nickname);
-        if(!matcher2.matches())
-        {
-            message.setVisibility(View.VISIBLE);
-            message.setText("Nickname must be 4-8 characters without special characters.");
-            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
-            return;
-        }
-        // Validity check for nickname
-        if(!this.imageTaken)
-        {
-            message.setVisibility(View.VISIBLE);
-            message.setText("Please select a valid image file.");
-            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
-            return;
-        }
+//        // check if all fields are filled in
+//        if(username.equals("") || password.equals("")|| password_again.equals("")||
+//                nickname.equals(""))
+//        {
+//            message.setVisibility(View.VISIBLE);
+//            message.setText("All fields are required.");
+//            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
+//            return;
+//        }
+//        // Validity check for username
+//        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{6,10}$");
+//        Matcher matcher = pattern.matcher(username);
+//        if(!matcher.matches())
+//        {
+//            message.setVisibility(View.VISIBLE);
+//            message.setText("Username must be 6-10 characters" +
+//                    " without special characters.");
+//            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
+//            return;
+//        }
+//        // Validity check for password
+//        Pattern pattern1 = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,14}$");
+//        Matcher matcher1 = pattern1.matcher(password);
+//        if(!matcher1.matches())
+//        {
+//            message.setVisibility(View.VISIBLE);
+//            message.setText("Password must be 8-14 characters with at least one uppercase, one lowercase, and one number, without special characters.");
+//            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
+//            return;
+//        }
+//        // Checking whether the two passwords are the same
+//        if(!password.equals(password_again))
+//        {
+//            message.setVisibility(View.VISIBLE);
+//            message.setText("The passwords you typed are not the same.");
+//            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
+//            return;
+//        }
+//        // Validity check for nickname
+//        Pattern pattern2 = Pattern.compile("^[a-zA-Z\\d]{4,8}$");
+//        Matcher matcher2 = pattern2.matcher(nickname);
+//        if(!matcher2.matches())
+//        {
+//            message.setVisibility(View.VISIBLE);
+//            message.setText("Nickname must be 4-8 characters without special characters.");
+//            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
+//            return;
+//        }
+//        // Validity check for nickname
+//        if(!this.imageTaken)
+//        {
+//            message.setVisibility(View.VISIBLE);
+//            message.setText("Please select a valid image file.");
+//            message.setTextColor(android.graphics.Color.parseColor("#FF0000"));
+//            return;
+//        }
 
         // all is correct
         message.setVisibility(View.VISIBLE);
         message.setText("The registration was successful!");
         message.setTextColor(android.graphics.Color.parseColor("#42b72a"));
+
+
+        new Thread(() -> {
+            OkHttpClient client = new OkHttpClient();
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+            // Update the JSON format in the request body
+            String json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", \"token\": \"" + "123" + "\"}";
+            RequestBody requestBody = RequestBody.create(JSON, json);
+
+            Request request = new Request.Builder()
+                    .url("http://172.16.28.171:8989/users/")
+                    .post(requestBody)
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                String responseBody = response.body().string();
+
+                runOnUiThread(() -> {
+                    if(responseBody.equals("1")) {
+                        findViewById(R.id.login_error).setVisibility(View.GONE);
+                        findViewById(R.id.message_layout).setVisibility(View.VISIBLE);
+                        findViewById(R.id.correct).setVisibility(View.VISIBLE);
+                        Intent i = new Intent(this, MainActivity.class);
+                        startActivity(i);
+                    }
+                    else{
+                        TextView login_error = findViewById(R.id.login_error);
+                        findViewById(R.id.correct).setVisibility(View.GONE);
+                        login_error.setText(getText(R.string.login_error));
+                        login_error.setVisibility(View.VISIBLE);
+                        findViewById(R.id.message_layout).setVisibility(View.VISIBLE);
+                    }
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    TextView login_error = findViewById(R.id.login_error);
+                    findViewById(R.id.correct).setVisibility(View.GONE);
+                    login_error.setText(e.toString());
+                    login_error.setVisibility(View.VISIBLE);
+                    findViewById(R.id.message_layout).setVisibility(View.VISIBLE);
+                });
+            }
+        }).start();
     }
 
     public String getImageFormat(Context context, Uri uri) {
