@@ -54,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
                     String responseBody = response.body().string();
 
                     runOnUiThread(() -> {
-                        if(responseBody.equals("1")) {
+                        if(!responseBody.equals("0")) {
                             findViewById(R.id.login_error).setVisibility(View.GONE);
                             findViewById(R.id.message_layout).setVisibility(View.VISIBLE);
                             findViewById(R.id.correct).setVisibility(View.VISIBLE);
                             Intent i = new Intent(this, FeedActivity.class);
+                            i.putExtra("user", responseBody);
                             startActivity(i);
                         }
                         else{

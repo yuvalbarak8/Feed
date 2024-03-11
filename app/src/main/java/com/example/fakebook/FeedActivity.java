@@ -49,11 +49,28 @@ public class FeedActivity extends Activity {
     private Bitmap bitmap;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
+    private JSONObject userJsonObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        // get the user data
+        Intent intent = getIntent();
+        String jsonString = intent.getStringExtra("user");
+        try {
+            assert jsonString != null;
+            userJsonObject = new JSONObject(jsonString);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        // welcome message
+        TextView welcome = findViewById(R.id.welcome_msg);
+        try {
+            welcome.setText("Hello "+userJsonObject.getString("username"));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         Button logoutButton = findViewById(R.id.logout_btn);
         logoutButton.setOnClickListener(new View.OnClickListener(){
