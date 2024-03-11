@@ -20,13 +20,17 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class FeedAdapter extends BaseAdapter {
 
     List<Post> posts;
     Activity activity;
+    private String user;
 
     private class ViewHolder {
         TextView name;
@@ -47,9 +51,10 @@ public class FeedAdapter extends BaseAdapter {
         Button delete_post_btn;
     }
 
-    public FeedAdapter(List<Post> posts, Activity activity) {
+    public FeedAdapter(List<Post> posts, Activity activity, String user) {
         this.activity = activity;
         this.posts = posts;
+        this.user = user;
     }
 
     @Override
@@ -113,6 +118,12 @@ public class FeedAdapter extends BaseAdapter {
                 viewHolder.like_btn.setBackground(null);
             }
         });
+        // gone edit and delete from who is not the user
+        if(!Objects.equals(p.getUsername(), user))
+        {
+            viewHolder.edit_btn.setVisibility(View.GONE);
+            viewHolder.delete_post_btn.setVisibility(View.GONE);
+        }
         // click on edit button
         viewHolder.edit_btn.setOnClickListener(v->{
             viewHolder.edit_post_text.setText(p.getContent());
