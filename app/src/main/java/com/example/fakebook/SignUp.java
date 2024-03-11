@@ -19,9 +19,15 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class SignUp extends AppCompatActivity {
 
@@ -127,6 +133,36 @@ public class SignUp extends AppCompatActivity {
         message.setVisibility(View.VISIBLE);
         message.setText("The registration was successful!");
         message.setTextColor(android.graphics.Color.parseColor("#42b72a"));
+        // go to server
+        new Thread(() -> {
+            OkHttpClient client = new OkHttpClient();
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+            // Update the JSON format in the request body
+            String json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", \"token\": \"" + "123" + "\"}";
+            RequestBody requestBody = RequestBody.create(JSON, json);
+
+            Request request = new Request.Builder()
+                    .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/users/")
+                    .post(requestBody)
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                String responseBody = response.body().string();
+
+                runOnUiThread(() -> {
+
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+
+                });
+            }
+        }).start();
+
     }
 
     public String getImageFormat(Context context, Uri uri) {
