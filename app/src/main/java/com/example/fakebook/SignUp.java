@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -19,7 +21,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +38,7 @@ public class SignUp extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
     private Boolean imageTaken = Boolean.FALSE;
+    private Uri profileImage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +144,10 @@ public class SignUp extends AppCompatActivity {
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
             // Update the JSON format in the request body
-            String json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", \"token\": \"" + "123" + "\"}";
+            String json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", " +
+                    "\"token\": \"" + "123" + "\", \"displayName\": \"" + nickname + "\", " +
+                    "\"profileImage\": \"" + imageToBase64(this.profileImage) + "\"}";
+
             RequestBody requestBody = RequestBody.create(JSON, json);
 
             Request request = new Request.Builder()
@@ -185,6 +193,28 @@ public class SignUp extends AppCompatActivity {
 
         // If all else fails, return null or a default value based on your requirements
         return null;
+    }
+    private String imageToBase64(Uri imageUri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+            if (inputStream != null) {
+                try {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        byteArrayOutputStream.write(buffer, 0, bytesRead);
+                    }
+                    byte[] byteArray = byteArrayOutputStream.toByteArray();
+                    return Base64.encodeToString(byteArray, Base64.NO_WRAP);
+                } finally {
+                    inputStream.close();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 
@@ -232,6 +262,7 @@ public class SignUp extends AppCompatActivity {
             ImageView profileImageView = findViewById(R.id.profileImageView);
             profileImageView.setImageURI(image);
             this.imageTaken = true;
+            this.profileImage = image;
             profileImageView.setVisibility(View.VISIBLE);
         } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null) {
             this.imageTaken = false;
