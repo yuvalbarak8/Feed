@@ -31,7 +31,15 @@
                 android:text="@string/dark_mode"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/black" />
-
+            <Button
+                android:id="@+id/menu_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="start"
+                android:background="@drawable/button_background"
+                android:text="@string/menu"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black" />
 
             <TextView
                 android:layout_width="0dp"
@@ -112,6 +120,7 @@
             android:text="@string/cancel_upload"
             android:visibility="gone"
             android:backgroundTint="@color/red"/>
+
     </LinearLayout>
 
     <LinearLayout

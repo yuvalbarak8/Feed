@@ -57,5 +57,6 @@
     <string name="_please_write_something">please write something</string>
     <string name="new_comment">New comment...</string>
     <string name="new_comment1">New Comment</string>
+    <string name="menu">menu</string>
 
 </resources>

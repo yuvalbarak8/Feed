@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -43,6 +44,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import android.widget.PopupMenu;
 
 public class FeedActivity extends Activity {
     private List<Post> posts;
@@ -70,6 +72,36 @@ public class FeedActivity extends Activity {
                 finish();
             }
         });
+
+        Button menuButton = findViewById(R.id.menu_btn); // Replace with your button's ID
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a PopupMenu instance
+                PopupMenu popup = new PopupMenu(FeedActivity.this, v);
+                // Inflate the menu from xml
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+                // Set a click listener for menu item clicks
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        // Handle menu item clicks here
+//                        switch (item.getItemId()) {
+//                            case R.id.action_option1:
+//                                // Handle option 1
+//                                return true;
+//                            case R.id.action_option2:
+//                                // Handle option 2
+//                                return true;
+//                            // Handle other items if any
+//                        }
+                        return false;
+                    }
+                });
+                // Show the popup menu
+                popup.show();
+            }
+        });
+
 
         Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
         TextView img_select_text = findViewById(R.id.img_selected_text);
