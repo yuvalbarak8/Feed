@@ -29,10 +29,12 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -41,6 +43,7 @@ import okhttp3.Response;
 
 public class FeedActivity extends Activity {
     private List<Post> posts;
+    private String uri;
     private Bitmap bitmap;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
@@ -51,6 +54,7 @@ public class FeedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
 
         // get the user data
         Intent intent = getIntent();
@@ -65,8 +69,8 @@ public class FeedActivity extends Activity {
         // welcome message
         TextView welcome = findViewById(R.id.welcome_msg);
         try {
-            welcome.setText("Hello " + userJsonObject.getString("username"));
-            this.user = userJsonObject.getString("username");
+            welcome.setText("Hello " + userJsonObject.getString("displayName"));
+            this.user = userJsonObject.getString("displayName");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -148,7 +152,6 @@ public class FeedActivity extends Activity {
             String post_content = new_post.getText().toString();
             if (!post_content.equals("")) {
                 error_post.setVisibility(View.GONE);
-                bitmap = null;
                 new_post.setText("");
                 sendPostToServer(post_content);
             } else {
@@ -182,7 +185,8 @@ public class FeedActivity extends Activity {
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
             // Update the JSON format in the request body
-            String json = "{\"display\": \"" + user + "\", \"text\": \"" + post_content + "\", \"img\": \"default\", \"profile\": \"default\"}";
+            String json = "{\"display\": \"" + user + "\", \"text\": \"" + post_content + "\", \"img\": \"" + this.uri + "\", \"profile\": \"default\"}";
+
 
             RequestBody requestBody = RequestBody.create(JSON, json);
 
@@ -197,6 +201,8 @@ public class FeedActivity extends Activity {
 
                 runOnUiThread(() -> {
                     updateFeed();
+                    this.bitmap = null;
+                    this.uri = null;
 
                 });
 
@@ -270,6 +276,30 @@ public class FeedActivity extends Activity {
 
         return null;
     }
+    private String imageToBase64(Uri imageUri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+            if (inputStream != null) {
+                try {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        byteArrayOutputStream.write(buffer, 0, bytesRead);
+                    }
+                    byte[] byteArray = byteArrayOutputStream.toByteArray();
+                    return Base64.encodeToString(byteArray, Base64.NO_WRAP);
+                } finally {
+                    inputStream.close();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -283,8 +313,12 @@ public class FeedActivity extends Activity {
             TextView img_select_text = findViewById(R.id.img_selected_text);
             Button cancel_img_btn = findViewById(R.id.cancel_img_btn);
             try {
+                this.uri = imageToBase64(selectedImageUri);
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                // Compress the image
+
                 this.bitmap = bitmap;
+
                 img_select_text.setVisibility(View.VISIBLE);
                 cancel_img_btn.setVisibility(View.VISIBLE);
             } catch (IOException e) {
@@ -304,6 +338,16 @@ public class FeedActivity extends Activity {
         void onPostsFetched(List<Post> postList);
         void onError(String errorMessage);
     }
+    private Bitmap base64ToImage(String base64String) {
+        try {
+            byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     private void fetchPostsFromServer(OnPostsFetchedListener listener) {
         new Thread(() -> {
@@ -320,24 +364,17 @@ public class FeedActivity extends Activity {
                 JSONArray jsonArray = new JSONArray(responseBody);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
-                    Bitmap bitmap = null;
-                    if (i < 6) {
-                        Bitmap defaultProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.nature);
-                        if (i % 2 == 1) {
-                            defaultProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.neture2);
-                        }
+                    String imageValue = object.optString("img","");
+                    Bitmap bitmapImage = base64ToImage(imageValue);
 
-                        String base64EncodedDefaultImage = encodeBitmapToBase64(defaultProfileImage);
-                        object.put("bitmap", base64EncodedDefaultImage);
-                        bitmap = decodeBase64ToBitmap(object.getString("bitmap"));
-                    }
                     String contentValue = object.optString("text", ""); // Use optString to handle null values
                     // Get the "username" value
                     String usernameValue = object.optString("username", "");
                     // Get the "profile_image" value
-                    int profileValue = object.optInt("profilePic", 0);
+                    String profileValue = object.optString("profilePic", "");
+                    Bitmap bitmapProfile = base64ToImage(profileValue);
 
-                    Post post = new Post(contentValue, usernameValue, profileValue, bitmap);
+                    Post post = new Post(contentValue, usernameValue, bitmapProfile, bitmapImage);
                     postList.add(0, post);
                 }
 
@@ -356,6 +393,10 @@ public class FeedActivity extends Activity {
     }
 
     private String encodeBitmapToBase64(Bitmap bitmap) {
+        if (bitmap==null)
+        {
+            return "null";
+        }
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();

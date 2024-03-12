@@ -42,5 +42,6 @@ dependencies {
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.0")
     implementation("com.squareup.okhttp3:okhttp:3.14.9")
     implementation("com.squareup.okhttp3:logging-interceptor:3.12.12")
+    implementation ("id.zelory:compressor:2.1.1")
 
 }

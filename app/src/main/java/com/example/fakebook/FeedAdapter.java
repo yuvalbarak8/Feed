@@ -102,7 +102,7 @@ public class FeedAdapter extends BaseAdapter {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.name.setText(p.getContent());
         viewHolder.username.setText(p.getUsername());
-        viewHolder.profile.setImageResource(p.getProfile_image());
+        viewHolder.profile.setImageBitmap(p.getProfile_image());
         if(p.getPost_image()==null) {
             viewHolder.img.setVisibility(View.GONE);
         }
