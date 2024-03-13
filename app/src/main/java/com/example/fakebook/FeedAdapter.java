@@ -153,6 +153,7 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.cancel_edit.setVisibility(View.GONE);
         });
         // delete post
+        //to
         viewHolder.delete_post_btn.setOnClickListener(v->{
             posts.remove(p);
             this.notifyDataSetChanged();
