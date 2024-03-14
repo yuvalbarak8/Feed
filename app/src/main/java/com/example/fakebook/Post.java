@@ -8,26 +8,22 @@ import java.util.List;
 
 public class Post {
 
+    private String date;
+
     private String content;
     private String username;
-    private int profile_image;
+    private Bitmap profile_image;
     private Bitmap post_image;
     ;
     private List<Comment> comments;
 
-    public Post(String content, String username, int profile_image, Bitmap post_image) {
+    public Post(String content, String username, Bitmap profile_image, Bitmap post_image, String date) {
         this.content = content;
         this.username = username;
-        this.profile_image = R.drawable.profile_image;
+        this.profile_image = profile_image;
         this.post_image = post_image;
         this.comments = new ArrayList<>();
-    }
-    public Post(String content, String username, int profile_image) {
-        this.content = content;
-        this.username = username;
-        this.profile_image = R.drawable.profile_image;
-        this.post_image = null;
-        this.comments = new ArrayList<>();
+        this.date = date;
     }
 
     public String getContent() {
@@ -37,8 +33,12 @@ public class Post {
     public String getUsername() {
         return this.username;
     }
+    public String getDate() {
+        return date;
+    }
 
-    public int getProfile_image() {
+
+    public Bitmap getProfile_image() {
         return this.profile_image;
     }
     public Bitmap getPost_image()
