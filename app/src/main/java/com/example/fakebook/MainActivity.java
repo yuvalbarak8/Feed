@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 RequestBody requestBody = RequestBody.create(JSON, json);
 
                 Request request = new Request.Builder()
-                        .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/users/login")
+                        .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/api/token")
                         .post(requestBody)
                         .build();
 
