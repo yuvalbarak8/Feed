@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Post {
 
+    private String date;
+
     private String content;
     private String username;
     private Bitmap profile_image;
@@ -15,19 +17,13 @@ public class Post {
     ;
     private List<Comment> comments;
 
-    public Post(String content, String username, Bitmap profile_image, Bitmap post_image) {
+    public Post(String content, String username, Bitmap profile_image, Bitmap post_image, String date) {
         this.content = content;
         this.username = username;
         this.profile_image = profile_image;
         this.post_image = post_image;
         this.comments = new ArrayList<>();
-    }
-    public Post(String content, String username, Bitmap profile_image) {
-        this.content = content;
-        this.username = username;
-        this.profile_image = profile_image;
-        this.post_image = null;
-        this.comments = new ArrayList<>();
+        this.date = date;
     }
 
     public String getContent() {
@@ -37,6 +33,10 @@ public class Post {
     public String getUsername() {
         return this.username;
     }
+    public String getDate() {
+        return date;
+    }
+
 
     public Bitmap getProfile_image() {
         return this.profile_image;

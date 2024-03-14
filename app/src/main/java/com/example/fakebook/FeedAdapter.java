@@ -33,6 +33,7 @@ public class FeedAdapter extends BaseAdapter {
     private String user;
 
     private class ViewHolder {
+        TextView time;
         TextView name;
         TextView username;
         ImageView profile;
@@ -95,6 +96,7 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.save_edit = convertView.findViewById(R.id.save_edit);
             viewHolder.edit_post_text = convertView.findViewById(R.id.editPost);
             viewHolder.edit_btn = convertView.findViewById(R.id.edit_btn);
+            viewHolder.time = convertView.findViewById(R.id.time);
             viewHolder.delete_post_btn = convertView.findViewById(R.id.delete_post_btn);
             convertView.setTag(viewHolder);
         }
@@ -102,6 +104,7 @@ public class FeedAdapter extends BaseAdapter {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.name.setText(p.getContent());
         viewHolder.username.setText(p.getUsername());
+        viewHolder.time.setText(p.getDate());
         viewHolder.profile.setImageBitmap(p.getProfile_image());
         if(p.getPost_image()==null) {
             viewHolder.img.setVisibility(View.GONE);
@@ -183,4 +186,5 @@ public class FeedAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
 }

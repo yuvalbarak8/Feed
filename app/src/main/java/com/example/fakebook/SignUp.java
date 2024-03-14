@@ -151,7 +151,7 @@ public class SignUp extends AppCompatActivity {
             RequestBody requestBody = RequestBody.create(JSON, json);
 
             Request request = new Request.Builder()
-                    .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/users/")
+                    .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/api/users/")
                     .post(requestBody)
                     .build();
 

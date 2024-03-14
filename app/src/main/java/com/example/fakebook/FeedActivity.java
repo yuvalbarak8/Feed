@@ -125,7 +125,7 @@ public class FeedActivity extends Activity {
             }
         });
 
-        this.fetchPostsFromServer(new OnPostsFetchedListener() {
+       this.fetchPostsFromServer(new OnPostsFetchedListener() {
             @Override
             public void onPostsFetched(List<Post> postList) {
                 runOnUiThread(() -> {
@@ -193,8 +193,9 @@ public class FeedActivity extends Activity {
             Request request = null;
             try {
                 request = new Request.Builder()
-                        .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/users/"+userJsonObject.getString("id")+"/posts")
-                        .post(requestBody).addHeader("authorization", "Bearer "+userJsonObject.getString("token"))
+                        .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/api/users/"+userJsonObject.getString("_id")+"/posts")
+                        .post(requestBody)
+                        //.addHeader("Authorization", "Bearer "+userJsonObject.getString("token"))
                         .build();
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -359,7 +360,7 @@ public class FeedActivity extends Activity {
             List<Post> postList = new ArrayList<>();
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("http://" + getString(R.string.ip) + ":" + getString(R.string.port) + "/posts")
+                    .url("http://" + getString(R.string.ip) + ":" + getString(R.string.port) + "/api/posts")
                     .get()
                     .build();
             try {
@@ -378,8 +379,10 @@ public class FeedActivity extends Activity {
                     // Get the "profile_image" value
                     String profileValue = object.optString("profilePic", "");
                     Bitmap bitmapProfile = base64ToImage(profileValue);
+                    // get date
+                    String dateValue = object.optString("publishDate","");
 
-                    Post post = new Post(contentValue, usernameValue, bitmapProfile, bitmapImage);
+                    Post post = new Post(contentValue, usernameValue, bitmapProfile, bitmapImage, dateValue);
                     postList.add(0, post);
                 }
 
@@ -391,6 +394,7 @@ public class FeedActivity extends Activity {
             }
         }).start();
     }
+
 
     private Bitmap decodeBase64ToBitmap(String base64EncodedString) {
         byte[] decodedBytes = Base64.decode(base64EncodedString, Base64.DEFAULT);

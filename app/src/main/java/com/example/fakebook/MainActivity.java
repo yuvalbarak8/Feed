@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,6 +17,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
                     String responseBody = response.body().string();
 
                     runOnUiThread(() -> {
-                        if(!responseBody.equals("0")) {
+                        if(!responseBody.equals("")) {
                             findViewById(R.id.login_error).setVisibility(View.GONE);
                             findViewById(R.id.message_layout).setVisibility(View.VISIBLE);
                             findViewById(R.id.correct).setVisibility(View.VISIBLE);
-                            Intent i = new Intent(this, FeedActivity.class);
+                            Intent i = new Intent(this,FeedActivity.class);
                             i.putExtra("user", responseBody);
                             startActivity(i);
                         }
