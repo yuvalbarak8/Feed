@@ -190,10 +190,15 @@ public class FeedActivity extends Activity {
 
             RequestBody requestBody = RequestBody.create(JSON, json);
 
-            Request request = new Request.Builder()
-                    .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/users/123/posts")
-                    .post(requestBody)
-                    .build();
+            Request request = null;
+            try {
+                request = new Request.Builder()
+                        .url("http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/users/"+userJsonObject.getString("id")+"/posts")
+                        .post(requestBody).addHeader("authorization", "Bearer "+userJsonObject.getString("token"))
+                        .build();
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
 
             try {
                 Response response = client.newCall(request).execute();
