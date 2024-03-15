@@ -1,21 +1,31 @@
-The project was brought to life by the collective efforts of Itamar, Yedidya, and Yuval, with each member specializing in a different aspect of the app's functionality:
+step 3:
 
-Itamar's Contribution: The Login Screen
-Itamar engineered the login screen, implementing a user-friendly interface that allows individuals to securely access their accounts. By entering a username and the password "Israel123" users can navigate to the feed of the social media .
+Update Network Configuration:
+Navigate to the strings folder and update the IP address and port number to match your current network settings. This step is crucial for the application to communicate with the server.
 
-Yedidya's Contribution: The Signup Screen
-Yedidya developed the signup screen, focusing on an effortless registration process that validate the user details.
 
-Yuval's Contribution: The Feed Screen
-Yuval was responsible for the feed screen, the central activity of our app where users can view, and interact with content.
+Registration Requirements: 
+When creating an account, choose a secure and strong password along with a unique username. If the chosen password or username does not meet security standards, the application will display a notification alerting you to this.
 
-Collaborative Design Efforts
+Login and Registration: 
+Both processes work with the server, ensuring secure access to your account.
 
-In addition to their individual contributions, the team worked collaboratively on the overall design of the application. Our design centered around simplicity, ease of navigation, and a visually appealing interface that enhances the user experience.
+Content Interaction:
+The application now supports various content-related functionalities directly from the server:
+
+Viewing Posts: 
+Users can view posts retrieved from the server, including the content of the posts and the usernames of the authors.
+
+Adding Posts: 
+You can now add new posts through the application, which will be uploaded to the server in real time.
+
+Modifying and Deleting Posts: 
+These features are restricted to the original authors of the posts. If you are the author, you have the ability to update or delete your posts as needed.
+
+Yuval's contribution was in connecting the application to the server, Itamar was on the editing side, Yedidia made sure that there was a good server that performs the appropriate actions.
 
 Running the Application:
-
 The app is designed to English language.
-The app can be launched through the Android Studio IDE. The login details provided (username and password "Israel123") allow for a straightforward demonstration of the app's functionality and user interface.
+The app can be launched through the Android Studio IDE while the app server is running.
 
 
