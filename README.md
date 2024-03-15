@@ -1,7 +1,7 @@
 step 3:
 
 Update Network Configuration:
-Navigate to the strings folder and update the IP address and port number to match your current network settings. This step is crucial for the application to communicate with the server.
+Navigate to the strings folder and update the ip address and port number to match your current network settings. This step is crucial for the application to communicate with the server.
 
 
 Registration Requirements: 
