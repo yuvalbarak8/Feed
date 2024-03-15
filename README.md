@@ -11,7 +11,7 @@ Login and Registration:
 Both processes work with the server, ensuring secure access to your account.
 
 Content Interaction:
-The application now supports various content-related functionalities directly from the server:
+The application now supports various content-related functionalities directly from the server
 
 Viewing Posts: 
 Users can view posts retrieved from the server, including the content of the posts and the usernames of the authors.
