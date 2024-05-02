@@ -4,7 +4,7 @@
     <string name="comment">Comment</string>
     <string name="share">Share</string>
     <string name="comments">Comments</string>
-    <string name="ip">192.168.10.170</string>
+    <string name="ip">10.100.102.68</string>
     <string name="port">80</string>
     <string-array name="menu">
         <item>First</item>
@@ -57,5 +57,7 @@
     <string name="_please_write_something">please write something</string>
     <string name="new_comment">New comment...</string>
     <string name="new_comment1">New Comment</string>
+    <string name="your_post_contains_bad_links">Your post contains bad links</string>
+    <string name="your_post_contains_bad_link">Your post contains bad link</string>
 
 </resources>

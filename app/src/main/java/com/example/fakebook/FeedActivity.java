@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,11 +50,14 @@ public class FeedActivity extends Activity {
     private static final int CAMERA_REQUEST = 2;
     private JSONObject userJsonObject;
     private String user = "";
+    private TextView error_post;
+    private TextView bad_link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        bad_link = findViewById(R.id.error_bad_link);
 
 
         // get the user data
@@ -68,12 +72,10 @@ public class FeedActivity extends Activity {
 
         // welcome message
         TextView welcome = findViewById(R.id.welcome_msg);
-        try {
-            welcome.setText("Hello " + userJsonObject.getString("displayName"));
-            this.user = userJsonObject.getString("displayName");
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        userJsonObject = userJsonObject.optJSONObject("user");
+        welcome.setText("Hello " + userJsonObject.optString("displayName"));
+        this.user = userJsonObject.optString("displayName");
+
 
         Button logoutButton = findViewById(R.id.logout_btn);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -143,9 +145,10 @@ public class FeedActivity extends Activity {
             }
         });
 
-        TextView error_post = findViewById(R.id.error_empty_post);
+        error_post = findViewById(R.id.error_empty_post);
         Button submit = findViewById(R.id.submit_btn);
         submit.setOnClickListener(view -> {
+            bad_link.setText("");
             TextView new_post = findViewById(R.id.new_post);
             cancel_img_btn.setVisibility(View.GONE);
             img_select_text.setVisibility(View.GONE);
@@ -155,6 +158,7 @@ public class FeedActivity extends Activity {
                 new_post.setText("");
                 sendPostToServer(post_content);
             } else {
+                error_post.setText("please write something");
                 error_post.setVisibility(View.VISIBLE);
             }
         });
@@ -204,6 +208,10 @@ public class FeedActivity extends Activity {
             try {
                 Response response = client.newCall(request).execute();
                 String responseBody = response.body().string();
+                if(responseBody.equals("null")) {
+                   bad_link.setText("Your post contains bad link, post didn't upload");
+                }
+
 
                 runOnUiThread(() -> {
                     updateFeed();
