@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         TextView login_error = findViewById(R.id.login_error);
                         findViewById(R.id.correct).setVisibility(View.GONE);
-                        login_error.setText(e.toString());
+                        //login_error.setText(e.toString());
                         login_error.setVisibility(View.VISIBLE);
                         findViewById(R.id.message_layout).setVisibility(View.VISIBLE);
                     });
