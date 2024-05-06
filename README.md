@@ -2,8 +2,8 @@
 By mistake there were several commits of stage 3 to main which is actually stage 2.
 The relevant commit of step 2 is in the link: https://github.com/yuvalbarak8/Feed/tree/70a8ccdd1b8258ffe3cead70cb426308547abd4c/
 
-
-
+important note for level 3:
+In level 3, go to string.xml and update the ip and the port to match your server network.
 
 
 The project was brought to life by the collective efforts of Itamar, Yedidya, and Yuval, with each member specializing in a different aspect of the app's functionality:
