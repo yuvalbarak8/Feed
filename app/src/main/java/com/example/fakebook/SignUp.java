@@ -146,7 +146,7 @@ public class SignUp extends AppCompatActivity {
             // Update the JSON format in the request body
             String json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", " +
                     "\"token\": \"" + "123" + "\", \"display\": \"" + nickname + "\", " +
-                    "\"profile\": \"" + imageToBase64(this.profileImage) + "\"}";
+                    "\"profile\": \"" + this.profileImage + "\"}";
 
             RequestBody requestBody = RequestBody.create(JSON, json);
 

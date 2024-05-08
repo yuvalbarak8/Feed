@@ -68,12 +68,9 @@ public class FeedActivity extends Activity {
 
         // welcome message
         TextView welcome = findViewById(R.id.welcome_msg);
-        try {
-            welcome.setText("Hello " + userJsonObject.getString("displayName"));
-            this.user = userJsonObject.getString("displayName");
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        userJsonObject = userJsonObject.optJSONObject("user");
+        welcome.setText("Hello " + userJsonObject.optString("displayName"));
+        this.user = userJsonObject.optString("displayName");
 
         Button logoutButton = findViewById(R.id.logout_btn);
         logoutButton.setOnClickListener(new View.OnClickListener() {
