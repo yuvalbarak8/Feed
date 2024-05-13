@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -158,6 +159,44 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.save_edit.setOnClickListener(v->{
             String new_text = viewHolder.edit_post_text.getText().toString();
             p.setContent(new_text);
+            // edit to server
+            new Thread(() -> {
+                OkHttpClient client = new OkHttpClient();
+
+                // Construct the URL with the appropriate path parameter
+                String url = "http://" + context.getResources().getString(R.string.ip) + ":" +
+                        context.getResources().getString(R.string.port) +
+                        "/api/users/" + p.getUser_Id() + "/posts/" + p.getId();
+
+                // Prepare the JSON request body
+                JSONObject requestBody = new JSONObject();
+                try {
+                    requestBody.put("text", new_text);
+                    requestBody.put("img","");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                RequestBody body = RequestBody.create(MediaType.parse("application/json"), requestBody.toString());
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .patch(body) // Use PUT method
+                        .build();
+
+                try {
+                    Response response = client.newCall(request).execute();
+                    String responseBody = response.body().string();
+
+                    // Handle response
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
+
+            //
             this.notifyDataSetChanged();
             viewHolder.edit_post_text.setVisibility(View.GONE);
             viewHolder.edit_btn.setVisibility(View.VISIBLE);
