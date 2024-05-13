@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
+    private String id;
 
     private String date;
 
@@ -17,14 +18,16 @@ public class Post {
     ;
     private List<Comment> comments;
 
-    public Post(String content, String username, Bitmap profile_image, Bitmap post_image, String date) {
+    public Post(String id, String content, String username, Bitmap profile_image, Bitmap post_image, String date) {
         this.content = content;
         this.username = username;
         this.profile_image = profile_image;
         this.post_image = post_image;
         this.comments = new ArrayList<>();
         this.date = date;
+        this.id = id;
     }
+    public String getId(){return this.id;}
 
     public String getContent() {
         return this.content;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Layout;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +23,23 @@ import androidx.core.content.ContextCompat;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class FeedAdapter extends BaseAdapter {
 
     List<Post> posts;
     Activity activity;
     private String user;
+    private Context context;
 
     private class ViewHolder {
         TextView time;
@@ -52,10 +61,11 @@ public class FeedAdapter extends BaseAdapter {
         Button delete_post_btn;
     }
 
-    public FeedAdapter(List<Post> posts, Activity activity, String user) {
+    public FeedAdapter(List<Post> posts, Activity activity, String user, Context context) {
         this.activity = activity;
         this.posts = posts;
         this.user = user;
+        this.context = context;
     }
 
     @Override
@@ -158,6 +168,32 @@ public class FeedAdapter extends BaseAdapter {
         // delete post
         viewHolder.delete_post_btn.setOnClickListener(v->{
             posts.remove(p);
+            // delete from server
+            new Thread(() -> {
+                OkHttpClient client = new OkHttpClient();
+
+                // Construct the URL with the appropriate path parameter
+                String url = "http://" + context.getResources().getString(R.string.ip) + ":" +
+                        context.getResources().getString(R.string.port) +
+                        "/api/users/:6641f6f04bb679e8d35176ec/posts/" + p.getId();
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .delete() // Use DELETE method
+                        .build();
+
+                try {
+                    Response response = client.newCall(request).execute();
+                    String responseBody = response.body().string();
+
+                    // Handle response
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
+            //
             this.notifyDataSetChanged();
         });
 

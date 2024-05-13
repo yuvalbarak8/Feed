@@ -45,6 +45,7 @@ import okhttp3.Response;
 public class FeedActivity extends Activity {
     private List<Post> posts;
     private String uri;
+    private Context context;
     private Bitmap bitmap;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
@@ -58,23 +59,69 @@ public class FeedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         bad_link = findViewById(R.id.error_bad_link);
+        context = this;
 
 
         // get the user data
         Intent intent = getIntent();
-        String jsonString = intent.getStringExtra("user");
-        try {
-            assert jsonString != null;
-            userJsonObject = new JSONObject(jsonString);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        String username = intent.getStringExtra("username");
+        String password = intent.getStringExtra("password");
+        //
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-        // welcome message
-        TextView welcome = findViewById(R.id.welcome_msg);
-        userJsonObject = userJsonObject.optJSONObject("user");
-        welcome.setText("Hello " + userJsonObject.optString("displayName"));
-        this.user = userJsonObject.optString("displayName");
+                // Update the JSON format in the request body
+                String json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
+                RequestBody requestBody = RequestBody.create(JSON, json);
+
+                Request request = new Request.Builder()
+                        .url("http://" + getString(R.string.ip) + ":" + getString(R.string.port) + "/api/token")
+                        .post(requestBody)
+                        .build();
+
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        String responseBody = response.body().string();
+                        userJsonObject = new JSONObject(responseBody).optJSONObject("user");
+                        if (userJsonObject != null) {
+                            runOnUiThread(() -> {
+                                // Handle successful userJsonObject retrieval
+                                TextView welcome = findViewById(R.id.welcome_msg);
+                                welcome.setText("Hello " + userJsonObject.optString("displayName"));
+                                user = userJsonObject.optString("displayName");
+                            });
+                        } else {
+                            // Handle null userJsonObject
+                            runOnUiThread(() -> {
+                                // Display an error message or handle the null case appropriately
+                                Toast.makeText(FeedActivity.this, "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    } else {
+                        // Handle unsuccessful response
+                        runOnUiThread(() -> {
+                            // Display an error message or handle the unsuccessful response appropriately
+                            Toast.makeText(FeedActivity.this, "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Handle network IO exception
+                    runOnUiThread(() -> {
+                        // Display an error message or handle the network IO exception appropriately
+                        Toast.makeText(FeedActivity.this, "Network error occurred", Toast.LENGTH_SHORT).show();
+                    });
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
+
+        //
 
 
         Button logoutButton = findViewById(R.id.logout_btn);
@@ -131,7 +178,7 @@ public class FeedActivity extends Activity {
             @Override
             public void onPostsFetched(List<Post> postList) {
                 runOnUiThread(() -> {
-                    FeedAdapter feedAdapter = new FeedAdapter(postList, FeedActivity.this, user);
+                    FeedAdapter feedAdapter = new FeedAdapter(postList, FeedActivity.this, user,context );
                     ListView lst = findViewById(R.id.lstFeed);
                     lst.setAdapter(feedAdapter);
                 });
@@ -169,7 +216,7 @@ public class FeedActivity extends Activity {
             @Override
             public void onPostsFetched(List<Post> postList) {
                 runOnUiThread(() -> {
-                    FeedAdapter feedAdapter = new FeedAdapter(postList, FeedActivity.this, user);
+                    FeedAdapter feedAdapter = new FeedAdapter(postList, FeedActivity.this, user, context);
                     ListView lst = findViewById(R.id.lstFeed);
                     lst.setAdapter(feedAdapter);
                 });
@@ -189,7 +236,7 @@ public class FeedActivity extends Activity {
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
             // Update the JSON format in the request body
-            String json = "{\"display\": \"" + user + "\", \"text\": \"" + post_content + "\", \"img\": \"" + this.uri + "\", \"profile\": \"default\"}";
+            String json = "{\"display\": \"" + user + "\", \"text\": \"" + post_content + "\", \"img\": \"" + escapeJsonString(uri) + "\", \"profile\": \""+escapeJsonString(userJsonObject.optString("profileImage"))+"\"}";
 
 
             RequestBody requestBody = RequestBody.create(JSON, json);
@@ -208,27 +255,37 @@ public class FeedActivity extends Activity {
             try {
                 Response response = client.newCall(request).execute();
                 String responseBody = response.body().string();
-                if(responseBody.equals("null")) {
-                   bad_link.setText("Your post contains bad link, post didn't upload");
+                if(response.isSuccessful()) {
+                    // Check if the post was successfully uploaded
+                    if (!responseBody.equals("null")) {
+                        runOnUiThread(() -> {
+                            updateFeed();
+                            this.bitmap = null;
+                            this.uri = null;
+                        });
+                    } else {
+                        runOnUiThread(() -> {
+                            // Show a message indicating that the post couldn't be uploaded
+                            Toast.makeText(FeedActivity.this, "Failed to upload post", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                } else {
+                    runOnUiThread(() -> {
+                        // Show a message indicating that the request was unsuccessful
+                        Toast.makeText(FeedActivity.this, "Failed to send post. Server returned: " + response.code(), Toast.LENGTH_SHORT).show();
+                    });
                 }
-
-
-                runOnUiThread(() -> {
-                    updateFeed();
-                    this.bitmap = null;
-                    this.uri = null;
-
-                });
-
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.e("NetworkError", "Error during network operation: " + e.getMessage());
                 runOnUiThread(() -> {
                     // Handle the error or show a message to the user
+                    Toast.makeText(FeedActivity.this, "Network error occurred", Toast.LENGTH_SHORT).show();
                 });
             }
         }).start();
     }
+
 
     private void applyLightModeStyles() {
         findViewById(R.id.feed_page).setBackgroundColor(getResources().getColor(R.color.light_background));
@@ -236,6 +293,18 @@ public class FeedActivity extends Activity {
         toggleModeButton.setText("DARK MODE");
         toggleModeButton.setBackgroundColor(getResources().getColor(R.color.dark_background));
     }
+    private String escapeJsonString(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
+    }
+
 
     private void applyNightModeStyles() {
         findViewById(R.id.feed_page).setBackgroundColor(getResources().getColor(R.color.gray));
@@ -302,15 +371,18 @@ public class FeedActivity extends Activity {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
                     }
                     byte[] byteArray = byteArrayOutputStream.toByteArray();
-                    return Base64.encodeToString(byteArray, Base64.NO_WRAP);
+                    String base64String = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                    return "data:image/png;base64," + base64String;
                 } finally {
                     inputStream.close();
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider logging the error instead of just printing the stack trace
+        } catch (SecurityException e) {
+            e.printStackTrace(); // Handle security exceptions
         }
-        return "";
+        return null; // Return null to indicate failure
     }
 
 
@@ -354,13 +426,20 @@ public class FeedActivity extends Activity {
     }
     private Bitmap base64ToImage(String base64String) {
         try {
-            byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+            // Extract base64 data by removing the data URI prefix
+            String base64Image = base64String.split(",")[1];
+
+            // Decode base64 string into bytes
+            byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+
+            // Convert bytes to Bitmap
             return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
 
 
     private void fetchPostsFromServer(OnPostsFetchedListener listener) {
@@ -389,8 +468,9 @@ public class FeedActivity extends Activity {
                     Bitmap bitmapProfile = base64ToImage(profileValue);
                     // get date
                     String dateValue = object.optString("publishDate","");
+                    String id = object.optString("_id","");
 
-                    Post post = new Post(contentValue, usernameValue, bitmapProfile, bitmapImage, dateValue);
+                    Post post = new Post(id, contentValue, usernameValue, bitmapProfile, bitmapImage, dateValue);
                     postList.add(0, post);
                 }
 
@@ -408,7 +488,19 @@ public class FeedActivity extends Activity {
         byte[] decodedBytes = Base64.decode(base64EncodedString, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
+    public static Bitmap base64ToBitmap(String base64String) {
+        // Extract the encoded data from the Base64 string
+        String[] parts = base64String.split(",");
+        String encodedData = parts[1];
 
+        // Decode the Base64 data
+        byte[] decodedData = Base64.decode(encodedData, Base64.DEFAULT);
+
+        // Convert the decoded byte array to Bitmap
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedData, 0, decodedData.length);
+
+        return bitmap;
+    }
     private String encodeBitmapToBase64(Bitmap bitmap) {
         if (bitmap==null)
         {

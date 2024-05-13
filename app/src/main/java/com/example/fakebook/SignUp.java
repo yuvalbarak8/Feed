@@ -146,7 +146,7 @@ public class SignUp extends AppCompatActivity {
             // Update the JSON format in the request body
             String json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", " +
                     "\"token\": \"" + "123" + "\", \"display\": \"" + nickname + "\", " +
-                    "\"profile\": \"" + this.profileImage+ "\"}";
+                    "\"profile\": \"" + escapeJsonString(imageToBase64(this.profileImage))+ "\"}";
 
             RequestBody requestBody = RequestBody.create(JSON, json);
 
@@ -172,6 +172,18 @@ public class SignUp extends AppCompatActivity {
         }).start();
 
     }
+    private String escapeJsonString(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
+    }
+
 
     public String getImageFormat(Context context, Uri uri) {
         ContentResolver contentResolver = context.getContentResolver();
@@ -206,15 +218,18 @@ public class SignUp extends AppCompatActivity {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
                     }
                     byte[] byteArray = byteArrayOutputStream.toByteArray();
-                    return Base64.encodeToString(byteArray, Base64.NO_WRAP);
+                    String base64String = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                    return "data:image/png;base64," + base64String;
                 } finally {
                     inputStream.close();
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider logging the error instead of just printing the stack trace
+        } catch (SecurityException e) {
+            e.printStackTrace(); // Handle security exceptions
         }
-        return "";
+        return null; // Return null to indicate failure
     }
 
 
