@@ -146,6 +146,7 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.name.setVisibility(View.GONE);
             viewHolder.save_edit.setVisibility(View.VISIBLE);
             viewHolder.cancel_edit.setVisibility(View.VISIBLE);
+            viewHolder.img.setVisibility(View.GONE);
         });
         // when cancel the edit
         viewHolder.cancel_edit.setOnClickListener(v->{
@@ -154,6 +155,9 @@ public class FeedAdapter extends BaseAdapter {
             viewHolder.name.setVisibility(View.VISIBLE);
             viewHolder.save_edit.setVisibility(View.GONE);
             viewHolder.cancel_edit.setVisibility(View.GONE);
+            if(p.getPost_image()!=null) {
+                viewHolder.img.setVisibility(View.VISIBLE);
+            }
         });
         // when save the changes
         viewHolder.save_edit.setOnClickListener(v->{
