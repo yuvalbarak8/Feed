@@ -15,10 +15,11 @@ public class Post {
     private String username;
     private Bitmap profile_image;
     private Bitmap post_image;
+    private String user_id;
     ;
     private List<Comment> comments;
 
-    public Post(String id, String content, String username, Bitmap profile_image, Bitmap post_image, String date) {
+    public Post(String user_id,String id, String content, String username, Bitmap profile_image, Bitmap post_image, String date) {
         this.content = content;
         this.username = username;
         this.profile_image = profile_image;
@@ -26,8 +27,10 @@ public class Post {
         this.comments = new ArrayList<>();
         this.date = date;
         this.id = id;
+        this.user_id = user_id;
     }
     public String getId(){return this.id;}
+    public String getUser_Id(){return this.user_id;}
 
     public String getContent() {
         return this.content;

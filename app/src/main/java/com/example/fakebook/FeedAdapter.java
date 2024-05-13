@@ -175,7 +175,7 @@ public class FeedAdapter extends BaseAdapter {
                 // Construct the URL with the appropriate path parameter
                 String url = "http://" + context.getResources().getString(R.string.ip) + ":" +
                         context.getResources().getString(R.string.port) +
-                        "/api/users/:6641f6f04bb679e8d35176ec/posts/" + p.getId();
+                        "/api/users/:"+p.getUser_Id()+"/posts/" + p.getId();
 
                 Request request = new Request.Builder()
                         .url(url)

@@ -469,8 +469,9 @@ public class FeedActivity extends Activity {
                     // get date
                     String dateValue = object.optString("publishDate","");
                     String id = object.optString("_id","");
+                    String user_id = userJsonObject.optString("_id");
 
-                    Post post = new Post(id, contentValue, usernameValue, bitmapProfile, bitmapImage, dateValue);
+                    Post post = new Post(user_id, id, contentValue, usernameValue, bitmapProfile, bitmapImage, dateValue);
                     postList.add(0, post);
                 }
 
