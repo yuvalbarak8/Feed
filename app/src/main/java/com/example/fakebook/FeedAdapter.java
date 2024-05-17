@@ -163,6 +163,9 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.save_edit.setOnClickListener(v->{
             String new_text = viewHolder.edit_post_text.getText().toString();
             p.setContent(new_text);
+            if(p.getPost_image()!=null) {
+                viewHolder.img.setVisibility(View.VISIBLE);
+            }
             // edit to server
             new Thread(() -> {
                 OkHttpClient client = new OkHttpClient();
