@@ -266,7 +266,7 @@ public class FeedActivity extends Activity {
                     } else {
                         runOnUiThread(() -> {
                             // Show a message indicating that the post couldn't be uploaded
-                            Toast.makeText(FeedActivity.this, "Failed to upload post", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FeedActivity.this, "Failed to upload post, post contain bad link", Toast.LENGTH_LONG).show();
                         });
                     }
                 } else {

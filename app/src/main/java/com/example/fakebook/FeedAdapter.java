@@ -162,7 +162,6 @@ public class FeedAdapter extends BaseAdapter {
         // when save the changes
         viewHolder.save_edit.setOnClickListener(v->{
             String new_text = viewHolder.edit_post_text.getText().toString();
-            p.setContent(new_text);
             if(p.getPost_image()!=null) {
                 viewHolder.img.setVisibility(View.VISIBLE);
             }
@@ -194,8 +193,18 @@ public class FeedAdapter extends BaseAdapter {
                 try {
                     Response response = client.newCall(request).execute();
                     String responseBody = response.body().string();
+                    if (!response.isSuccessful()) {
+                        activity.runOnUiThread(() ->
+                                Toast.makeText(context, "Failed to edit post, post contain bad link", Toast.LENGTH_LONG).show()
+                        );
+                    }
+                    else {
+                        activity.runOnUiThread(() ->
+                                Toast.makeText(context, "Edit your post, please wait...", Toast.LENGTH_LONG).show()
+                        );
+                        p.setContent(new_text);
+                    }
 
-                    // Handle response
 
                 } catch (IOException e) {
                     e.printStackTrace();
