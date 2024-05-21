@@ -316,15 +316,12 @@ public class FeedActivity extends Activity {
     private void showImagePickerDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose an option")
-                .setItems(new CharSequence[]{"Gallery", "Camera"}, new DialogInterface.OnClickListener() {
+                .setItems(new CharSequence[]{"Gallery"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
                                 pickImageFromGallery();
-                                break;
-                            case 1:
-                                pickImageFromCamera();
                                 break;
                         }
                     }
