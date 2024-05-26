@@ -1,4 +1,4 @@
-step 3:
+step 4:
 
 Update Network Configuration:
 Navigate to the strings folder and update the ip address and port number to match your current network settings. This step is crucial for the application to communicate with the server.
@@ -28,4 +28,6 @@ Running the Application:
 The app is designed to English language.
 The app can be launched through the Android Studio IDE while the app server is running.
 
+The wiki folder is in the TCP server repository:
+https://github.com/yuvalbarak8/server/tree/Yuval4/wiki
 
